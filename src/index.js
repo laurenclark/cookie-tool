@@ -48,5 +48,5 @@ function removeCookie(cookieType) {
     serializeCookies(cookieType);
 }
 
-setCookies();
-console.log(cookies);
+// setCookies();
+console.log("Hi");
