@@ -1,4 +1,5 @@
 const rawCookie = require("./html.js");
+const cookieIcon = require("./cookie.js");
 
 const cookiesToSet = {
     DFTT_END_USER_PREV_BOOTSTRAPPED: "true",
@@ -9,7 +10,12 @@ const cookiesToSet = {
 };
 
 const root = document.getElementById("rawCookie");
-root.innerHTML = rawCookie;
+
+// !preferences
+// root.innerHTML = rawCookie;
+
+// preferences
+root.innerHTML = cookieIcon;
 
 const marketingElem = document.getElementById("rawCookieMarketing");
 const personalisationElem = document.getElementById("rawCookiePersonalisation");

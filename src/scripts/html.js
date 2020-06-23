@@ -1,4 +1,4 @@
-module.exports = `<aside class="raw-cookie">
+module.exports = `<aside class="raw-cookie fade-out">
     <span>
         This website stores data such as cookies to enable important site
         functionality including analytics, targeting, and personalization. You

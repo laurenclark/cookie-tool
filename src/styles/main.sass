@@ -46,6 +46,24 @@ ul
     left: 1em
     border: 1px solid white
 
+    &__widget
+        cursor: pointer
+        position: fixed
+        background: none
+        border: none
+        bottom: 12px
+        z-index: 2147483636
+        width: 40px
+        height: 40px
+        opacity: 0.9
+        outline: none
+        padding: 0
+        transition-property: transform, opacity, visibility
+        transition-duration: 100ms, 400ms, 0ms
+        transition-delay: 0ms, 0ms, 0ms
+        visibility: visible
+        left: 12px
+
     &__content-link
         display: inline-block
         padding: 0 0.125em
