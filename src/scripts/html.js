@@ -72,4 +72,4 @@ module.exports = rawCookie = `<aside class="raw-cookie">
             Accept All
         </button>
     </div>
-</aside>;`;
+</aside>`;
