@@ -6,18 +6,18 @@ const cookiesToSet = {
     _gid: "GA1.1.630008955.1592825401",
 };
 
-const dialog = document.getElementById("dialog");
+const marketingElem = document.getElementById("rawCookieMarketing");
+const presentationalElem = document.getElementById("rawCookiePresentational");
 
 const cookies = getCookies();
 // const marketingCookies = []; // Filter by "_g"
 // const analyticsCookies = []; // DFTT & driftt
 
-function setCookies() {
-    for (let [key, value] of Object.entries(cookiesToSet)) {
-        document.cookie = `${key}=${value}`;
-    }
-}
-
+/**
+ * Get Cookies
+ *
+ * @param {String}  - The cookies.
+ */
 function getCookies() {
     return document.cookie
         .split(";")
@@ -29,6 +29,18 @@ function getCookies() {
             }),
             {}
         );
+}
+
+/**
+ * Set Cookies
+ *
+ * @param {Array}  - Array of cookies
+ */
+
+function setCookies(array) {
+    for (let [key, value] of Object.entries(array)) {
+        document.cookie = `${key}=${value}`;
+    }
 }
 
 function getUserPrefs() {
@@ -43,6 +55,10 @@ function setUserPrefs(userPrefs) {
 }
 
 function removeCookie(cookieType) {}
+
+function handleSave() {}
+
+function handleAcceptAll() {}
 
 setCookies();
 console.log(cookies);
