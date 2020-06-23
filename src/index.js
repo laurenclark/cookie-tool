@@ -7,13 +7,12 @@ const cookiesToSet = {
 };
 
 const marketingElem = document.getElementById("rawCookieMarketing");
-const presentationalElem = document.getElementById("rawCookiePresentational");
+const personalisationElem = document.getElementById("rawCookiePersonalisation");
+const analyticsElem = document.getElementById("rawCookieAnalytics");
 const save = document.getElementById("rawCookieSave");
 const accept = document.getElementById("rawCookieAccept");
 
 const cookies = getCookies();
-// const marketingCookies = []; // Filter by "_g"
-// const analyticsCookies = []; // DFTT & driftt
 
 function getCookies() {
     return document.cookie
@@ -41,7 +40,19 @@ function setCookies(array) {
 }
 
 function getUserPrefs() {
-    // See what toggles are on
+    if (marketingElem.checked) {
+        console.log("marketing is checked");
+        // Remove cookies which are not marketing
+    }
+    if (personalisationElem.checked) {
+        console.log("personalisation is checked");
+        // Remove cookies which are not personalisation
+    }
+    if (analyticsElem.checked) {
+        console.log("analytics is checked");
+        // Remove cookies which are not analyrics
+    }
+
     // Create an object with Marketing/Analytics/DenyAll
 }
 
@@ -51,14 +62,19 @@ function setUserPrefs(userPrefs) {
     return;
 }
 
-function removeCookie(cookieType) {}
+function removeScripts() {
+    // Analytics is easy
+    // Drift would remove the chat?
+}
 
 function handleSave() {
     console.log("Save Clicked");
+    getUserPrefs();
     // setUserPrefs();
 }
 
 function handleAcceptAll() {
+    // Set cookie with year expire for all cookies, plus the preference.
     console.log("Accept Clicked");
 }
 
