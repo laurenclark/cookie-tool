@@ -8,16 +8,13 @@ const cookiesToSet = {
 
 const marketingElem = document.getElementById("rawCookieMarketing");
 const presentationalElem = document.getElementById("rawCookiePresentational");
+const save = document.getElementById("rawCookieSave");
+const accept = document.getElementById("rawCookieAccept");
 
 const cookies = getCookies();
 // const marketingCookies = []; // Filter by "_g"
 // const analyticsCookies = []; // DFTT & driftt
 
-/**
- * Get Cookies
- *
- * @param {String}  - The cookies.
- */
 function getCookies() {
     return document.cookie
         .split(";")
@@ -56,9 +53,17 @@ function setUserPrefs(userPrefs) {
 
 function removeCookie(cookieType) {}
 
-function handleSave() {}
+function handleSave() {
+    console.log("Save Clicked");
+    // setUserPrefs();
+}
 
-function handleAcceptAll() {}
+function handleAcceptAll() {
+    console.log("Accept Clicked");
+}
 
-setCookies();
+save.addEventListener("click", handleSave);
+accept.addEventListener("click", handleAcceptAll);
+
+setCookies(cookiesToSet);
 console.log(cookies);
