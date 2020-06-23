@@ -46,98 +46,98 @@ ul
     left: 1em
     border: 1px solid white
 
-.raw-cookie__content-link
-    display: inline-block
-    padding: 0 0.125em
-    text-transform: capitalize
-    color: #000c36
+    &__content-link
+        display: inline-block
+        padding: 0 0.125em
+        text-transform: capitalize
+        color: #000c36
 
-.raw-cookie__button-container
-    display: flex
-    flex-wrap: wrap
-    margin: 0.5em 0 0 0
+    &__button-container
+        display: flex
+        flex-wrap: wrap
+        margin: 0.5em 0 0 0
 
-.raw-cookie__button
-    border: none
-    border-radius: 0.25em
-    font-weight: bold
-    font-size: 1em
-    padding: 0.5em 0.75em
-    margin: 0.125em
-    line-height: 1
-    flex: 1 1 auto
-    min-width: 6em
-    cursor: pointer
-    transition-duration: 200ms
-    transition-property: background-color
-    transition-timing-function: ease-out
-    background-color: #000c36
-    border-color: #fff
-    color: #fff
+    &__button
+        border: none
+        border-radius: 0.25em
+        font-weight: bold
+        font-size: 1em
+        padding: 0.5em 0.75em
+        margin: 0.125em
+        line-height: 1
+        flex: 1 1 auto
+        min-width: 6em
+        cursor: pointer
+        transition-duration: 200ms
+        transition-property: background-color
+        transition-timing-function: ease-out
+        background-color: #000c36
+        border-color: #fff
+        color: #fff
 
-.raw-cookie__button:hover
-    background: #00030d
-    outline: none
+    &__button:hover
+        background: #00030d
+        outline: none
 
-.raw-cookie__toggle
-    align-items: center
-    display: flex
-    justify-content: flex-start
-    margin: 0.25em 0
-    position: relative
-    cursor: pointer
+    &__toggle
+        align-items: center
+        display: flex
+        justify-content: flex-start
+        margin: 0.25em 0
+        position: relative
+        cursor: pointer
 
-.raw-cookie__toggle-switch
-    background-color: #d2cfff
+    &__toggle-switch
+        background-color: #d2cfff
 
-.raw-cookie__toggle-switch
-    color: transparent
-    line-height: 0
-    text-indent: -9999px
-    width: 44px
-    height: 22px
-    display: block
-    border-radius: 10px
-    position: relative
-    transition-duration: 200ms
-    transition-property: background-color
-    transition-timing-function: ease-out
+    &__toggle-switch
+        color: transparent
+        line-height: 0
+        text-indent: -9999px
+        width: 44px
+        height: 22px
+        display: block
+        border-radius: 10px
+        position: relative
+        transition-duration: 200ms
+        transition-property: background-color
+        transition-timing-function: ease-out
 
-.raw-cookie__toggle-switch::after
-    background: white
-    content: ""
-    position: absolute
-    top: 2px
-    left: 2px
-    width: 18px
-    height: 18px
-    border-radius: 9px
-    transition: 0.3s
+    &__toggle-switch::after
+        background: white
+        content: ""
+        position: absolute
+        top: 2px
+        left: 2px
+        width: 18px
+        height: 18px
+        border-radius: 9px
+        transition: 0.3s
 
-.raw-cookie__toggle-checkbox
-    height: 1px
-    width: 1px
-    margin: -1px
-    opacity: 0
-    position: absolute
+    &__toggle-checkbox
+        height: 1px
+        width: 1px
+        margin: -1px
+        opacity: 0
+        position: absolute
 
-.raw-cookie__toggle-switch::after
-    background-color: #fff
+    &__toggle-switch::after
+        background-color: #fff
 
-.raw-cookie__toggle-label
-    margin: 0 0.5em
+    &__toggle-label
+        margin: 0 0.5em
 
-.raw-cookie__list-item
-    display: flex
-    margin-top: 0
+    &__list-item
+        display: flex
+        margin-top: 0
 
-.raw-cookie__dialog-list-item
-    display: flex
-    margin-top: 0
+    &__dialog-list-item
+        display: flex
+        margin-top: 0
 
-.raw-cookie__toggle-checkbox:checked + .raw-cookie__toggle-switch
-    background-color: #37cd8f
+    &__toggle-checkbox:checked + &__toggle-switch
+        background-color: #37cd8f
 
-.raw-cookie__toggle-checkbox:checked + .raw-cookie__toggle-switch::after
-    left: calc(100% - 2px)
-    transform: translateX(-100%)
+    &__toggle-checkbox:checked + &__toggle-switch::after
+        left: calc(100% - 2px)
+        transform: translateX(-100%)
