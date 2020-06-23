@@ -1,3 +1,5 @@
+const rawCookie = require("./html.js");
+
 const cookiesToSet = {
     DFTT_END_USER_PREV_BOOTSTRAPPED: "true",
     driftt_aid: "31163cee-69d7-404e-b58f-a98fe9fe3200",
@@ -5,6 +7,9 @@ const cookiesToSet = {
     "_gat_UA-9333142-1": "1",
     _gid: "GA1.1.630008955.1592825401",
 };
+
+const root = document.getElementById("rawCookie");
+root.innerHTML = rawCookie;
 
 const marketingElem = document.getElementById("rawCookieMarketing");
 const personalisationElem = document.getElementById("rawCookiePersonalisation");
