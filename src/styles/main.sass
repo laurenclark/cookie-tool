@@ -24,27 +24,101 @@ ul
     padding: 0
 
 .raw-cookie
-    box-sizing: border-box
-    font-size: 1em
-    line-height: 1.25
-    align-items: center
-    background: #ff0063
-    color: #fff
-    position: fixed
-    z-index: 2147483637
-    padding: 1.5em
-    overflow: auto
-    transition-property: opacity, visibility
-    transition-duration: 700ms, 700ms
-    transition-delay: 0ms, 0ms
-    visibility: visible
-    width: calc(100vw - 2em)
-    flex-direction: column
-    max-width: 20em
-    max-height: calc(100vh - 2em)
-    bottom: 1em
-    left: 1em
-    border: 1px solid white
+    font-size: 16px
+    font-family: Helvetica, Arial, 'Hiragino Sans GB', STXihei, 'Microsoft YaHei', 'WenQuanYi Micro Hei', Hind, 'MS Gothic', 'Apple SD Gothic Neo', 'NanumBarunGothic', sans-serif
+    font-smooth: always
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothingz: auto
+    display: block
+    z-index: 2147483638
+    line-height: 1
+    width: 100%
+    &__dialog
+        box-sizing: border-box
+        font-size: 1em
+        line-height: 1.25
+        align-items: center
+        background: #ff0063
+        color: #fff
+        position: fixed
+        z-index: 2147483637
+        padding: 1.5em
+        overflow: auto
+        transition-property: opacity, visibility
+        transition-duration: 700ms, 700ms
+        transition-delay: 0ms, 0ms
+        visibility: visible
+        width: calc(100vw - 2em)
+        flex-direction: column
+        max-width: 20em
+        max-height: calc(100vh - 2em)
+        bottom: 1em
+        left: 1em
+        border: 1px solid white
+
+    &__info-dialog
+        box-sizing: border-box
+        position: fixed
+        top: 0
+        background: #fff
+        color: #000
+        max-width: 20em
+        height: 100vh
+        transition-property: transform
+        transition-duration: 400ms
+        padding: 1em 0.75em
+        box-shadow: 0 0 2px 2px #ccc
+        overflow-x: hidden
+        overflow-y: auto
+        left: 0
+        transform: translate(-100%, 0)
+        &__header-description
+            font-size: 0.75em
+            line-height: 1.375
+
+        &--open
+            transform: translate(0, 0)
+        &__close
+            cursor: pointer
+            float: right
+            text-decoration: none
+            border: none
+            padding: 0
+            transition: transform 200ms ease-out
+            transform: rotate(0deg)
+            margin: 0
+            outline: none
+            &:hover
+                transform: rotate(90deg)
+
+    &__disclosure
+        font-size: 0.75em
+        margin: 0 -1.5em 0
+        padding: 1.5em 1.5em 0
+
+    &__toggle
+        flex-direction: row-reverse
+        justify-content: space-between
+        cursor: pointer
+        line-height: 1.25
+        position: relative
+
+    &__list-item
+        margin: 1em 0 0
+        padding: 0
+
+    &__item-description
+        font-size: 0.75em
+        font-weight: 300
+        line-height: 1.375
+        margin: 1em 0 0
+
+    &__toggle
+        align-items: center
+        display: flex
+        justify-content: flex-start
+        margin: 0.25em 0
+        position: relative
 
     &__widget
         cursor: pointer
@@ -63,6 +137,9 @@ ul
         transition-delay: 0ms, 0ms, 0ms
         visibility: visible
         left: 12px
+        &:focus, &:hover
+            opacity: 1
+            transform: scale(1.1)
 
     &__content-link
         display: inline-block
