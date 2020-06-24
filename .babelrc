@@ -1,13 +1,10 @@
 {
-    "presets": [
+    "plugins": [
         [
-            "@babel/preset-env",
+            "@babel/plugin-transform-runtime",
             {
-                "debug": true,
-                "targets": {
-                    "ie": "11"
-                },
-                "useBuiltIns": "entry"
+                "corejs": 2,
+                "regenerator": true
             }
         ]
     ]

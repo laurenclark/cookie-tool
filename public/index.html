@@ -3,8 +3,35 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./src/styles/main.sass" />
         <title>Fakenet</title>
+        <style>
+            .header__logo-link {
+                display: flex;
+            }
+
+            .header__logo-link div {
+                position: absolute;
+                left: 100px;
+                font-size: 38px;
+                color: white;
+                font-family: Helvetica;
+                font-weight: bold;
+                letter-spacing: -2px;
+            }
+
+            .header__logo-img path {
+                fill: #fff;
+            }
+
+            body {
+                background: #ff0063;
+                color: white;
+                font-family: inherit;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+                    'Helvetica Neue', sans-serif;
+            }
+        </style>
     </head>
     <body>
         <a href="/" class="header__logo-link">
@@ -167,7 +194,8 @@
                 </button>
             </div>
         </div>
-        <div id="rawCookie"></div>
-        <script defer src="./src/scripts/index.js"></script>
+        <div id="app"></div>
+
+        <script src="../src/main.js"></script>
     </body>
 </html>
