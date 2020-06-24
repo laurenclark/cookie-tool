@@ -1,8 +1,4 @@
 
-ul
-    list-style: none
-    padding: 0
-
 .raw-cookie
     font-size: 16px
     font-family: Helvetica, Arial, 'Hiragino Sans GB', STXihei, 'Microsoft YaHei', 'WenQuanYi Micro Hei', Hind, 'MS Gothic', 'Apple SD Gothic Neo', 'NanumBarunGothic', sans-serif
@@ -13,6 +9,9 @@ ul
     z-index: 2147483638
     line-height: 1
     width: 100%
+    ul
+        list-style: none
+        padding: 0
     &__dialog
         box-sizing: border-box
         font-size: 1em
@@ -55,6 +54,11 @@ ul
         &__header-description
             font-size: 0.75em
             line-height: 1.375
+        &__item-description
+            font-size: 0.75em
+            font-weight: 300
+            line-height: 1.375
+            margin: 1em 0 0
 
         &--open
             transform: translate(0, 0)
