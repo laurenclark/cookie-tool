@@ -1,8 +1,10 @@
 import './styles/main.sass';
 import App from './App';
+import Core from './core';
 
-const app = async () => {
+async function app() {
     document.body.insertBefore(await App(), document.body.firstChild);
-};
-// Load app
+    Core();
+}
+
 app();

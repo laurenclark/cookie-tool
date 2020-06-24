@@ -1,4 +1,4 @@
-async function Core() {
+function Core() {
     const cookiesToSet = {
         DFTT_END_USER_PREV_BOOTSTRAPPED: 'true',
         driftt_aid: '31163cee-69d7-404e-b58f-a98fe9fe3200',
