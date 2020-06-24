@@ -1,3 +1,5 @@
+require('details-polyfill');
+
 function Dialog() {
     const template = `<aside class="raw-cookie__dialog">
         <span>
