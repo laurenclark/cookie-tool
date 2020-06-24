@@ -1,4 +1,14 @@
 {
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "IE": "11"
+                }
+            }
+        ]
+    ],
     "plugins": [
         [
             "@babel/plugin-transform-runtime",
@@ -6,6 +16,7 @@
                 "corejs": 2,
                 "regenerator": true
             }
-        ]
+        ],
+        "babel-plugin-syntax-async-functions"
     ]
 }

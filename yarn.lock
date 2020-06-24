@@ -1326,7 +1326,7 @@ babel-plugin-dynamic-import-node@^2.3.3:
   dependencies:
     object.assign "^4.1.0"
 
-babel-plugin-syntax-async-functions@^6.8.0:
+babel-plugin-syntax-async-functions@^6.13.0, babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
   integrity sha1-ytnK0RkbWtY0vzCuCHI5HgZHvpU=
@@ -2525,6 +2525,11 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
+
+details-polyfill@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/details-polyfill/-/details-polyfill-1.1.0.tgz#d6d71be0885560e7afca42688b03ff379fd80e56"
+  integrity sha512-YARtvrZ+FobZBMjfAyCxNZ5Cm5riB2tKMsdUQvTFnCvg3OeAkOGCoSxgDZT0uAXV+t5zgJYMGWd/ftVI6v8I0w==
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
