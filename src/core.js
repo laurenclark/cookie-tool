@@ -1,37 +1,35 @@
-(function () {
-    const rawCookie = require("./html.js");
-
+async function Core() {
     const cookiesToSet = {
-        DFTT_END_USER_PREV_BOOTSTRAPPED: "true",
-        driftt_aid: "31163cee-69d7-404e-b58f-a98fe9fe3200",
-        _ga: "GA1.1.1786990352.1592825396",
-        "_gat_UA-9333142-1": "1",
-        _gid: "GA1.1.630008955.1592825401",
+        DFTT_END_USER_PREV_BOOTSTRAPPED: 'true',
+        driftt_aid: '31163cee-69d7-404e-b58f-a98fe9fe3200',
+        _ga: 'GA1.1.1786990352.1592825396',
+        '_gat_UA-9333142-1': '1',
+        _gid: 'GA1.1.630008955.1592825401',
     };
 
-    const root = document.getElementById("rawCookie");
-    root.innerHTML = rawCookie;
+    // const root = document.getElementById('rawCookie');
+    // root.innerHTML = rawCookie;
 
-    const marketingElem = document.getElementById("rawCookieMarketing");
+    const marketingElem = document.getElementById('rawCookieMarketing');
     const personalisationElem = document.getElementById(
-        "rawCookiePersonalisation"
+        'rawCookiePersonalisation',
     );
-    const analyticsElem = document.getElementById("rawCookieAnalytics");
-    const save = document.getElementById("rawCookieSave");
-    const accept = document.getElementById("rawCookieAccept");
+    const analyticsElem = document.getElementById('rawCookieAnalytics');
+    const save = document.getElementById('rawCookieSave');
+    const accept = document.getElementById('rawCookieAccept');
 
     const cookies = getCookies();
 
     function getCookies() {
         return document.cookie
-            .split(";")
-            .map((cookie) => cookie.split("="))
+            .split(';')
+            .map((cookie) => cookie.split('='))
             .reduce(
                 (accumulator, [key, value]) => ({
                     ...accumulator,
                     [key.trim()]: decodeURIComponent(value),
                 }),
-                {}
+                {},
             );
     }
 
@@ -49,15 +47,15 @@
 
     function getUserPrefs() {
         if (marketingElem.checked) {
-            console.log("marketing is checked");
+            console.log('marketing is checked');
             // Remove cookies which are not marketing
         }
         if (personalisationElem.checked) {
-            console.log("personalisation is checked");
+            console.log('personalisation is checked');
             // Remove cookies which are not personalisation
         }
         if (analyticsElem.checked) {
-            console.log("analytics is checked");
+            console.log('analytics is checked');
             // Remove cookies which are not analyrics
         }
 
@@ -76,19 +74,21 @@
     }
 
     function handleSave() {
-        console.log("Save Clicked");
+        console.log('Save Clicked');
         getUserPrefs();
         // setUserPrefs();
     }
 
     function handleAcceptAll() {
         // Set cookie with year expire for all cookies, plus the preference.
-        console.log("Accept Clicked");
+        console.log('Accept Clicked');
     }
 
-    save.addEventListener("click", handleSave);
-    accept.addEventListener("click", handleAcceptAll);
+    save.addEventListener('click', handleSave);
+    accept.addEventListener('click', handleAcceptAll);
 
     setCookies(cookiesToSet);
     console.log(cookies);
-})();
+}
+
+export default Core;
