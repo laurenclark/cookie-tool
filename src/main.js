@@ -1,11 +1,15 @@
 import './styles/main.sass';
+import CookieButton from './components/CookieButton';
+import Dialog from './components/Dialog';
+// import InfoDialog from './components/InfoDialog';
+import App from './app';
 
-import App from './App';
-import Core from './core';
+const template = document.createElement('div');
+template.className = 'raw-cookie';
+template.innerHTML = `
+        ${Dialog()}
+        ${CookieButton()}
+    `;
 
-async function app() {
-    document.body.insertBefore(await App(), document.body.firstChild);
-    Core();
-}
-
-app();
+document.body.insertBefore(template, document.body.firstChild);
+App();
