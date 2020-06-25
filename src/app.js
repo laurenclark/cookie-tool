@@ -43,16 +43,16 @@ function App() {
     }
 
     function getUserPrefs() {
-        if (marketingElem.checked) {
-            console.log('marketing is checked');
+        if (!marketingElem.checked) {
+            console.log('marketing is not checked');
             // Remove cookies which are not marketing
         }
-        if (personalisationElem.checked) {
-            console.log('personalisation is checked');
+        if (!personalisationElem.checked) {
+            console.log('personalisation is not checked');
             // Remove cookies which are not personalisation
         }
-        if (analyticsElem.checked) {
-            console.log('analytics is checked');
+        if (!analyticsElem.checked) {
+            console.log('analytics is not checked');
             // Remove cookies which are not analyrics
         }
 
