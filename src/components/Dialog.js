@@ -1,5 +1,32 @@
 function Dialog() {
-    const template = `<aside class="raw-cookie__dialog" hidden>
+    const data = [
+        { title: 'Marketing', id: 'rawCookieMarketing' },
+        { title: 'Personalisation', id: 'rawCookiePersonalisation' },
+        { title: 'Analytics', id: 'rawCookieAnalytics' },
+    ];
+
+    const items = data
+        .map((item) => {
+            return `<li class="raw-cookie__dialog-list-item">
+                    <label
+                        class="raw-cookie__toggle"
+                        title="${item.title}"
+                        for="${item.id}">
+                        <input
+                            id="${item.id}"
+                            class="raw-cookie__toggle-checkbox"
+                            type="checkbox"
+                        />
+                        <span class="raw-cookie__toggle-switch"></span>
+                        <span class="raw-cookie__toggle-label raw-cookie__label">
+                            ${item.title}
+                        </span>
+                    </label>
+                </li>`;
+        })
+        .join('');
+
+    const template = `<aside class="raw-cookie__dialog">
         <span>
             This website stores data such as cookies to enable important site
             functionality including analytics, targeting, and personalization. You
@@ -13,57 +40,7 @@ function Dialog() {
         </span>
 
         <ul id="dialog" class="raw-cookie__dialog-list">
-            <li class="raw-cookie__dialog-list-item">
-                <label
-                    class="raw-cookie__toggle"
-                    title="Marketing"
-                    for="rawCookieMarketing">
-                    <input
-                        id="rawCookieMarketing"
-                        class="raw-cookie__toggle-checkbox"
-                        data-category="marketing"
-                        type="checkbox"
-                    />
-                    <span class="raw-cookie__toggle-switch"></span>
-                    <span class="raw-cookie__toggle-label raw-cookie__label">
-                        Marketing
-                    </span>
-                </label>
-            </li>
-            <li class="raw-cookie__dialog-list-item">
-                <label
-                    class="raw-cookie__toggle"
-                    title="Personalisation"
-                    for="rawCookiePersonalisation">
-                    <input
-                        id="rawCookiePersonalisation"
-                        class="raw-cookie__toggle-checkbox"
-                        data-category="personalisation"
-                        type="checkbox"
-                    />
-                    <span class="raw-cookie__toggle-switch"></span>
-                    <span class="raw-cookie__toggle-label raw-cookie__label">
-                        Personalisation
-                    </span>
-                </label>
-            </li>
-            <li class="raw-cookie__dialog-list-item">
-                <label
-                    class="raw-cookie__toggle"
-                    title="Analytics"
-                    for="rawCookieAnalytics">
-                    <input
-                        id="rawCookieAnalytics"
-                        class="raw-cookie__toggle-checkbox"
-                        data-category="analytics"
-                        type="checkbox"
-                    />
-                    <span class="raw-cookie__toggle-switch"></span>
-                    <span class="raw-cookie__toggle-label raw-cookie__label">
-                        Analytics
-                    </span>
-                </label>
-            </li>
+            ${items}
         </ul>
         <div class="raw-cookie__button-container">
             <button class="raw-cookie__button" id="rawCookieSave">
