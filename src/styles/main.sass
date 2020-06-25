@@ -1,3 +1,4 @@
+@import 'reset'
 
 .raw-cookie
     font-size: 16px
@@ -34,6 +35,8 @@
         bottom: 1em
         left: 1em
         border: 1px solid white
+        &__toggle-label
+            margin: 0 0.5em
 
     &__info-dialog
         box-sizing: border-box
@@ -51,10 +54,22 @@
         overflow-y: auto
         left: 0
         transform: translate(-100%, 0)
+        &__wrapper
+            position: fixed
+            top: 0
+            left: 0
+            width: 100vw
+            height: 100vh
+            background: rgba(0,0,0,0.458824)
+            z-index: 2147483638
+            transition-property: opacity, visibility
+            transition-duration: 200ms, 0ms
+            transition-delay: 0ms, 0ms
+            visibility: visible
         &__header-description
             font-size: 0.75em
             line-height: 1.375
-        &__item-description
+        &__description
             font-size: 0.75em
             font-weight: 300
             line-height: 1.375
@@ -74,28 +89,38 @@
             outline: none
             &:hover
                 transform: rotate(90deg)
+        .raw-cookie__toggle
+            flex-direction: row-reverse
+            justify-content: space-between
+            font-size: 0.875em
+            margin: 0
+
+    &__list
+        list-style-type: none
+        margin: 0
+        padding: 0
+
+        &-item
+            margin: 1em 0 0
+            padding: 0
 
     &__disclosure
-        font-size: 0.75em
+        font-size: 0.85em
         margin: 0 -1.5em 0
-        padding: 1.5em 1.5em 0
-
+        padding: 0.5em 1.5em 0
+        &__list
+            line-height: 1.25
+            list-style: none
+            margin: 0 -1.5em 0
+            padding: 1.25em 1.5em 1em
+            background-color: rgba(0,0,0,0.1)
+        &__list:first-of-type
+            margin-top: 1em
+            padding: 1.25em 1.5em 1em
     &__toggle
-        flex-direction: row-reverse
-        justify-content: space-between
         cursor: pointer
         line-height: 1.25
         position: relative
-
-    &__list-item
-        margin: 1em 0 0
-        padding: 0
-
-    &__item-description
-        font-size: 0.75em
-        font-weight: 300
-        line-height: 1.375
-        margin: 1em 0 0
 
     &__toggle
         align-items: center
@@ -153,6 +178,11 @@
         background-color: #000c36
         border-color: #fff
         color: #fff
+        &--full
+            @extend .raw-cookie__button
+            font-size: 0.875em
+            width: 100%
+            margin: 1em 0 0
 
     &__button:hover
         background: #00030d
@@ -202,13 +232,6 @@
 
     &__toggle-switch::after
         background-color: #fff
-
-    &__toggle-label
-        margin: 0 0.5em
-
-    &__list-item
-        display: flex
-        margin-top: 0
 
     &__dialog-list-item
         display: flex
