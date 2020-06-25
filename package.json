@@ -1,6 +1,8 @@
 {
     "name": "rawcookie",
     "version": "1.0.0",
+    "author": "Lauren Clark @ Rawnet (lclark@rawnet.com)",
+    "description": "PECR Cookie plugin for websites",
     "main": "index.js",
     "scripts": {
         "dev": "npm run clean && parcel public/index.html --out-dir development -p 3000",
