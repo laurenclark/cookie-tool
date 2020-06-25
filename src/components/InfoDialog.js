@@ -60,7 +60,7 @@ function InfoDialog() {
         <div class="raw-cookie__info-dialog__wrapper">
             <div class="raw-cookie__info-dialog raw-cookie__info-dialog--open">
                 <div class="raw-cookie__info-dialog__header">
-                    <button class="raw-cookie__info-dialog__close" tabindex="0">
+                    <button id="info-dialog-toggle" class="raw-cookie__info-dialog__close" tabindex="0">
                     ${CloseButton}
                     </button>
                     <p class="raw-cookie__info-dialog__header-title">

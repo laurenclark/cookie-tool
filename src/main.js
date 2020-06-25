@@ -6,7 +6,7 @@
 import CookieButton from './components/CookieButton';
 import Dialog from './components/Dialog';
 import InfoDialog from './components/InfoDialog';
-import compiledStyles from './compiledStyles';
+import compiled from './compiled';
 
 import App from './app';
 
@@ -18,9 +18,9 @@ template.innerHTML = `
         ${InfoDialog()}
     `;
 
-const styles = document.createElement('style');
-styles.innerHTML = compiledStyles;
+const styleTemplate = document.createElement('style');
+styleTemplate.innerHTML = compiled;
 
-document.head.appendChild(styles);
+document.head.appendChild(styleTemplate);
 document.body.insertBefore(template, document.body.firstChild);
 App();
