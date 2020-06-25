@@ -38,3 +38,4 @@ __✏️✏️ To Edit the Styles__
 __Nice to Have__
 
 Automate the minifying and stringing of the styles.
+Automate renaming the script to output as rawCookie.js on compile.
