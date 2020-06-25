@@ -1,4 +1,6 @@
+
 .raw-cookie
+    $this: &
     font-size: 16px
     font-family: Helvetica, Arial, 'Hiragino Sans GB', STXihei, 'Microsoft YaHei', 'WenQuanYi Micro Hei', Hind, 'MS Gothic', 'Apple SD Gothic Neo', 'NanumBarunGothic', sans-serif
     font-smooth: always
@@ -92,7 +94,7 @@
             outline: none
             &:hover
                 transform: rotate(90deg)
-        .raw-cookie__toggle
+        #{$this}__toggle
             flex-direction: row-reverse
             justify-content: space-between
             font-size: 0.875em
