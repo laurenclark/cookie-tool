@@ -23,4 +23,8 @@ styleTemplate.innerHTML = compiled;
 
 document.head.appendChild(styleTemplate);
 document.body.insertBefore(template, document.body.firstChild);
+
+// Init
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.info('RawCookie Initialised');
 App();
