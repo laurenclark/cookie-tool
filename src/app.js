@@ -12,6 +12,11 @@ function App() {
         'rawCookiePersonalisation',
     );
     const analyticsElem = document.getElementById('rawCookieAnalytics');
+    const infoDialogClose = document.getElementById('info-dialog-toggle');
+    const infoDialog = document.querySelector('.raw-cookie__info-dialog');
+    const infoDialogWrapper = document.querySelector(
+        '.raw-cookie__info-dialog__wrapper',
+    );
     const save = document.getElementById('rawCookieSave');
     const accept = document.getElementById('rawCookieAccept');
 
@@ -81,8 +86,23 @@ function App() {
         console.log('Accept Clicked');
     }
 
+    function handleInfoToggle() {
+        if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
+            infoDialogWrapper.classList.add(
+                'raw-cookie__info-dialog__wrapper--hidden',
+            );
+            infoDialog.classList.remove('raw-cookie__info-dialog--open');
+        } else {
+            infoDialog.classList.add('raw-cookie__info-dialog--open');
+            infoDialogWrapper.classList.remove(
+                'raw-cookie__info-dialog__wrapper--hidden',
+            );
+        }
+    }
+
     save.addEventListener('click', handleSave);
     accept.addEventListener('click', handleAcceptAll);
+    infoDialogClose.addEventListener('click', handleInfoToggle);
 
     setCookies(cookiesToSet);
     console.log(cookies);
