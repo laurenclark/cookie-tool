@@ -39,7 +39,7 @@
         bottom: 1em
         left: 1em
         border: 1px solid white
-        &__toggle-label
+        #{$this}__toggle-label
             margin: 0 0.5em
 
     &__info-dialog
@@ -177,7 +177,7 @@
         margin: 0.25em 0
         position: relative
 
-    &__widget
+    button#{$this}__widget
         cursor: pointer
         position: fixed
         background: none
@@ -292,3 +292,6 @@
     &__toggle-checkbox:checked + &__toggle-switch::after
         left: calc(100% - 2px)
         transform: translateX(-100%)
+
+    &__toggle-checkbox:disabled + &__toggle-switch
+        opacity: 0.3

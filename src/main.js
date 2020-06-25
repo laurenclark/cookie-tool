@@ -6,7 +6,7 @@
 import CookieButton from './components/CookieButton';
 import Dialog from './components/Dialog';
 import InfoDialog from './components/InfoDialog';
-import compiled from './compiled';
+import compiled from './compiledCSS';
 
 import App from './app';
 
@@ -27,4 +27,5 @@ document.body.insertBefore(template, document.body.firstChild);
 // Init
 window.addEventListener('DOMContentLoaded', (event) => {
     console.info('RawCookie Initialised');
-App();
+    App();
+});
