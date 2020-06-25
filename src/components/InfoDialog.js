@@ -1,25 +1,63 @@
+import InfoDialogData from './InfoDialogData';
+import CloseButton from '../assets/close-button.js';
 require('details-polyfill');
 
 function InfoDialog() {
+    const items = InfoDialogData.map((item) => {
+        return `<li class="raw-cookie__list-item">
+            <label
+                class="raw-cookie__toggle"
+                for="${item.title}"
+            >
+                <input
+                    class="raw-cookie__toggle-checkbox"
+                    id="${item.title}"
+                    type="checkbox"
+                />
+                <span class="raw-cookie__toggle-switch"></span>
+                <span
+                    class="raw-cookie__toggle-label raw-cookie-label"
+                    >${item.title}</span
+                >
+            </label>
+
+            <div class="raw-cookie__info-dialog__description">
+                ${item.description}
+            </div>
+            <details
+                class="raw-cookie__disclosure raw-cookie__disclosure--collapse"
+            >
+                <summary class="raw-cookie__disclosure__toggle"
+                    >Disclosure</summary
+                >
+                <ul
+                    data-type="cookies"
+                    class="raw-cookie__disclosure__list"
+                >
+                    <li class="raw-cookie__list-item">
+                        Cookies: No Disclosures
+                            <dl class="osano-cm-list-item__cookie-disclosure osano-cm-cookie-disclosure">
+                            <dt class="osano-cm-cookie-disclosure__title osano-cm-title">Cookie Name</dt>
+                            <dd class="osano-cm-cookie-disclosure__description osano-cm-description">__hssrc</dd>
+                            <dt class="osano-cm-cookie-disclosure__title osano-cm-title">Provider</dt>
+                            <dd class="osano-cm-cookie-disclosure__description osano-cm-description">Hubspot Inc</dd>
+                            <dt class="osano-cm-cookie-disclosure__title osano-cm-title">Expiry</dt>
+                            <dd class="osano-cm-cookie-disclosure__description osano-cm-description">1 Year</dd>
+                            <dt class="osano-cm-cookie-disclosure__title osano-cm-title">Purpose</dt>
+                            <dd class="osano-cm-cookie-disclosure__description osano-cm-description">Session analytics</dd>
+                        </dl>
+                    </li>
+                </ul>
+            </details>
+        </li>`;
+    }).join('');
+
     const template = `
     <div class="raw-cookie__info-dialog__wrapper">
         <div class="raw-cookie__info-dialog raw-cookie__info-dialog--open">
             <div class="raw-cookie__info-dialog__header">
                 <button class="raw-cookie__info-dialog__close" tabindex="0">
-                    <svg
-                        aria-role="button"
-                        width="20px"
-                        height="20px"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        viewBox="0 0 25 25"
-                    >
-                        <title>Close Icon</title>
-                        <polygon
-                            class="x"
-                            points="25 0.71 24.29 0 12.5 11.79 0.71 0 0 0.71 11.79 12.5 0 24.29 0.71 25 12.5 13.21 24.29 25 25 24.29 13.21 12.5 25 0.71"
-                        ></polygon>
-                    </svg>
+                   ${CloseButton}
                 </button>
                 <p class="raw-cookie__info-dialog__header-title">
                     Storage Preferences
@@ -67,7 +105,6 @@ function InfoDialog() {
                         <summary class="raw-cookie__disclosure__toggle"
                             >Disclosure</summary
                         >
-
                         <ul
                             data-type="cookies"
                             class="raw-cookie__disclosure__list"
@@ -75,16 +112,10 @@ function InfoDialog() {
                             <li class="osano-cm-disclosure__list-item">
                                 No Disclosures
                             </li>
-                            <!-- HARDCODE COOKIES HERE -->
-                        </ul>
-                        <ul
-                            data-type="scripts"
-                            class="raw-cookie__disclosure __list"
-                        >
-                            <!-- HARDCODE SCRIPTS HERE -->
                         </ul>
                     </details>
                 </li>
+            ${items}
             </ul>
             <button class="raw-cookie__button--full" id="rawCookieInfoSave">
                 Save
