@@ -35,9 +35,9 @@ function InfoDialog() {
                         ${item.disabledByDefault}
                     />
                     <span class="raw-cookie__toggle-switch"></span>
-                    <span class="raw-cookie__toggle-label raw-cookie-label">${
-                        item.title
-                    }</span>
+                    <span class="raw-cookie__toggle-label raw-cookie-label">
+                        ${item.title}
+                    </span>
                 </label>
 
                 <div class="raw-cookie__info-dialog__description">
