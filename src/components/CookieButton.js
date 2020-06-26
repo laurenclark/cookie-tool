@@ -1,5 +1,5 @@
 function CookieButton() {
-    const template = `<button class="raw-cookie__widget">
+    const template = `<button id="cookieToggleButton" class="raw-cookie__widget">
         <svg
             width="40"
             height="40"

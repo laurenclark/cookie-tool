@@ -57,8 +57,8 @@ function InfoDialog() {
     }).join('');
 
     const template = `
-        <div class="raw-cookie__info-dialog__wrapper">
-            <div class="raw-cookie__info-dialog raw-cookie__info-dialog--open">
+        <div class="raw-cookie__info-dialog__wrapper raw-cookie__info-dialog__wrapper--hidden">
+            <div class="raw-cookie__info-dialog">
                 <div class="raw-cookie__info-dialog__header">
                     <button id="info-dialog-toggle" class="raw-cookie__info-dialog__close" tabindex="0">
                     ${CloseButton}

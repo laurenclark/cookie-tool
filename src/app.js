@@ -17,6 +17,7 @@ function App() {
     const infoDialogWrapper = document.querySelector(
         '.raw-cookie__info-dialog__wrapper',
     );
+    const cookieToggleButton = document.getElementById('cookieToggleButton');
     const save = document.getElementById('rawCookieSave');
     const accept = document.getElementById('rawCookieAccept');
 
@@ -64,6 +65,12 @@ function App() {
         // Create an object with Marketing/Analytics/DenyAll
     }
 
+    /**
+     * Set Cookies
+     *
+     * @param {Obj}  -  Deserialised Cookie Obj
+     */
+
     function setUserPrefs(userPrefs) {
         // Get the users cookie preferences if they have any
         // Set the cookie for a year and remember it
@@ -79,13 +86,18 @@ function App() {
         console.log('Save Clicked');
         getUserPrefs();
         // setUserPrefs();
+        handleDialogToggle();
     }
 
     function handleAcceptAll() {
         // Set cookie with year expire for all cookies, plus the preference.
         console.log('Accept Clicked');
+        // setUserPrefs();
+        handleDialogToggle();
     }
 
+    // If no userPrefs cookie then show the small dialog.
+    // If userPrefs show the cookie button
     function handleInfoToggle() {
         if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
             infoDialogWrapper.classList.add(
@@ -98,6 +110,14 @@ function App() {
                 'raw-cookie__info-dialog__wrapper--hidden',
             );
         }
+    }
+
+    function handleDialogToggle() {}
+
+    function intialState() {
+        // IF user [hasPrefs]
+        // SHOW cookie button
+        // ELSE show dialog
     }
 
     save.addEventListener('click', handleSave);
