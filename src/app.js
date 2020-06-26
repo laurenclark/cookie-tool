@@ -18,9 +18,18 @@ function App() {
         '.raw-cookie__info-dialog__wrapper',
     );
     const cookieToggleButton = document.getElementById('cookieToggleButton');
+    const initialDialog = document.getElementById('initialDialog');
     const save = document.getElementById('rawCookieSave');
     const accept = document.getElementById('rawCookieAccept');
 
+    const state = {
+        hasPrefs: false,
+        userPrefs: {
+            marketing: true,
+            personalisation: true,
+            analytics: true,
+        },
+    };
     const cookies = getCookies();
 
     function getCookies() {
@@ -86,14 +95,16 @@ function App() {
         console.log('Save Clicked');
         getUserPrefs();
         // setUserPrefs();
-        handleDialogToggle();
+        toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+        toggler(initialDialog, 'raw-cookie__dialog--hidden');
     }
 
     function handleAcceptAll() {
         // Set cookie with year expire for all cookies, plus the preference.
         console.log('Accept Clicked');
         // setUserPrefs();
-        handleDialogToggle();
+        toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+        toggler(initialDialog, 'raw-cookie__dialog--hidden');
     }
 
     // If no userPrefs cookie then show the small dialog.
@@ -112,18 +123,42 @@ function App() {
         }
     }
 
-    function handleDialogToggle() {}
+    /**
+     * Toggle Open/Close
+     *
+     * @param {Object} Target
+     * @param {String} ClassToToggle
 
-    function intialState() {
-        // IF user [hasPrefs]
-        // SHOW cookie button
-        // ELSE show dialog
+     */
+
+    function toggler(target, className) {
+        if (target.classList.contains(className)) {
+            target.classList.remove(className);
+        } else {
+            target.classList.add(className);
+        }
+    }
+
+    /**
+     * What to Show User on Load
+     *
+     * @param {Object} State
+     */
+    function intialStateToShow(state) {
+        if (state.hasPrefs) {
+            handleInfoToggle();
+        } else {
+            toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+            toggler(initialDialog, 'raw-cookie__dialog--hidden');
+        }
     }
 
     save.addEventListener('click', handleSave);
     accept.addEventListener('click', handleAcceptAll);
     infoDialogClose.addEventListener('click', handleInfoToggle);
+    cookieToggleButton.addEventListener('click', handleInfoToggle);
 
+    intialStateToShow(state);
     setCookies(cookiesToSet);
     console.log(cookies);
 }

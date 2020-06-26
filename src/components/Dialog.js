@@ -26,7 +26,7 @@ function Dialog() {
         })
         .join('');
 
-    const template = `<aside class="raw-cookie__dialog raw-cookie__dialog--hidden">
+    const template = `<aside id="initialDialog" class="raw-cookie__dialog raw-cookie__dialog--hidden">
         <span>
             This website stores data such as cookies to enable important site
             functionality including analytics, targeting, and personalization. You
