@@ -28,5 +28,16 @@
         "rimraf": "^3.0.2",
         "sass": "^1.26.9"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {
+                "overrideBrowserslist": [
+                    "> 1%",
+                    "last 2 versions",
+                    "ie 11"
+                ]
+            }
+        }
+    }
 }
