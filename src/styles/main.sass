@@ -198,6 +198,10 @@
         transition-delay: 0ms, 0ms, 0ms
         visibility: visible
         left: 12px
+        &--hidden
+            opacity: 0
+            transition-delay: 0ms, 0ms, 400ms
+            visibility: hidden
         &:focus, &:hover
             opacity: 1
             transform: scale(1.1)
@@ -236,10 +240,6 @@
             font-size: 0.875em
             width: 100%
             margin: 1em 0 0
-        &--hidden
-            opacity: 0
-            transition-delay: 0ms, 0ms, 400ms
-            visibility: hidden
 
     &__button:hover
         background: #00030d
