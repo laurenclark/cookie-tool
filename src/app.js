@@ -31,16 +31,12 @@ function App(state, config) {
     };
 
     /**
-     * What to Show User on Load
+     * Mirror the bool state as checkboxes
      *
      * @param {Object} State
      */
     function mirrorState(state) {
-        // GET COOKIE
-        // IF RAWCOOKIE
-
         if (state.hasPrefs) {
-            handleInfoToggle();
             checkboxes.infoDialog.necessary.setAttribute('checked', true);
             checkboxes.infoDialog.necessary.setAttribute('disabled', true);
             if (!state.userPrefs.marketing) {
@@ -177,6 +173,7 @@ function App(state, config) {
     }
 
     function handleInfoToggle() {
+        mirrorState(state);
         if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
             infoDialogWrapper.classList.add(
                 'raw-cookie__info-dialog__wrapper--hidden',
