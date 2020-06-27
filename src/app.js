@@ -1,4 +1,4 @@
-function App(state, config) {
+function App(state, scriptsscriptsConfig) {
     const infoDialogClose = document.getElementById('info-dialog-toggle');
     const infoDialog = document.querySelector('.raw-cookie__info-dialog');
     const infoDialogWrapper = document.querySelector(
@@ -125,8 +125,8 @@ function App(state, config) {
 
     function removeAnalyticsScripts() {
         // Disables GA Tracking
-        window[`ga-disable-${config.analyticsCode}`] = true;
-        // TODO - remove the scripts from config
+        window[`ga-disable-${scriptsConfig.analyticsCode}`] = true;
+        // TODO - remove the scripts from scriptsConfig
     }
 
     function removeMarketingScripts() {}

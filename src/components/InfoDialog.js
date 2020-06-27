@@ -1,4 +1,4 @@
-import InfoDialogData from './InfoDialogData';
+import InfoDialogData from '../config/InfoDialogData';
 import CloseButton from '../assets/close-button.js';
 require('details-polyfill');
 
