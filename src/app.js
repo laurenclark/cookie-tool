@@ -70,7 +70,7 @@ function App(state, config) {
     function getCookies() {
         return document.cookie
             .split(';')
-            .map((cookie) => cookie.split('='))
+            .map((cookie) => cookie.split(/=(.+)/))
             .reduce(
                 (accumulator, [key, value]) => ({
                     ...accumulator,
