@@ -35,7 +35,7 @@ function App(state, config) {
      *
      * @param {Object} State
      */
-    function intialStateToShow(state) {
+    function mirrorState(state) {
         // GET COOKIE
         // IF RAWCOOKIE
 
@@ -49,7 +49,7 @@ function App(state, config) {
                 checkboxes.infoDialog.marketing.setAttribute('checked', true);
             }
             if (!state.userPrefs.personalisation) {
-                removePersonalisationScripts();
+                // removePersonalisationScripts();
             } else if (state.userPrefs.personalisation) {
                 checkboxes.infoDialog.personalisation.setAttribute(
                     'checked',
@@ -145,19 +145,18 @@ function App(state, config) {
     --------------------------------------------------------------*/
 
     function handleSave() {
-        console.log('Dialog Save Clicked');
         checkPrefs(checkboxes.dialog);
         // setUserPrefs();
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
+        mirrorState(state);
     }
 
     function handleInfoSave() {
-        console.log('Info Save Clicked');
-        console.log(state);
         checkPrefs(checkboxes.infoDialog);
         // setUserPrefs();
         handleInfoToggle();
+        mirrorState(state);
     }
 
     function handleAcceptAll() {
@@ -165,6 +164,7 @@ function App(state, config) {
         state.userPrefs.personalisation = true;
         state.userPrefs.analytics = true;
         setUserPrefs();
+        mirrorState(state);
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
     }
@@ -214,7 +214,7 @@ function App(state, config) {
     ## Init Actions
     --------------------------------------------------------------*/
 
-    intialStateToShow(state);
+    mirrorState(state);
     // IF HasPrefs is TRUE
     // And Marketing || Personalistion || Analytics === false
     // Expire cookies and remove scripts for each

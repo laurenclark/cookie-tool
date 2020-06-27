@@ -11,7 +11,7 @@ import compiled from './compiledCSS';
 import App from './app';
 
 const state = {
-    hasPrefs: true,
+    hasPrefs: false,
     userPrefs: {
         necessary: true,
         marketing: true,
@@ -44,5 +44,5 @@ document.body.insertBefore(template, document.body.firstChild);
 window.addEventListener('DOMContentLoaded', function onLoad() {
     // Init
     console.info('RawCookie Initialised');
-    App(state);
+    App(state, config);
 });
