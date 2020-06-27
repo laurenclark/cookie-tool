@@ -286,7 +286,27 @@ function App(state, scriptsConfig) {
     // read the cookie
     // if it's changed set it again
     // remove scripts
-    mirrorState(state);
+    // BUG - InfoState not saving
+    function onInit() {
+        let cookies = getCookies();
+        if (cookies.RAWCOOKIE) {
+            state.hasPrefs = true;
+            const prefsToSet = cookies.RAWCOOKIE.split(',')
+                .map((cookie) => cookie.split('='))
+                .reduce(
+                    (accumulator, [key, value]) => ({
+                        ...accumulator,
+                        [key.trim()]: decodeURIComponent(value),
+                    }),
+                    {},
+                );
+            state.userPrefs = prefsToSet;
+            checkPrefs(checkboxes.infoDialog);
+        }
+        mirrorState(state);
+    }
+
+    onInit();
 }
 
 export default App;
