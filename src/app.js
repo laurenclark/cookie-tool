@@ -1,36 +1,71 @@
-function App() {
-    const cookiesToSet = {
-        DFTT_END_USER_PREV_BOOTSTRAPPED: 'true',
-        driftt_aid: '31163cee-69d7-404e-b58f-a98fe9fe3200',
-        _ga: 'GA1.1.1786990352.1592825396',
-        '_gat_UA-9333142-1': '1',
-        _gid: 'GA1.1.630008955.1592825401',
-    };
-
-    const marketingElem = document.getElementById('rawCookieMarketing');
-    const personalisationElem = document.getElementById(
-        'rawCookiePersonalisation',
-    );
-    const analyticsElem = document.getElementById('rawCookieAnalytics');
+function App(state, config) {
     const infoDialogClose = document.getElementById('info-dialog-toggle');
     const infoDialog = document.querySelector('.raw-cookie__info-dialog');
     const infoDialogWrapper = document.querySelector(
         '.raw-cookie__info-dialog__wrapper',
     );
+    const infoDialogSave = document.getElementById('infoDialogSave');
+
     const cookieToggleButton = document.getElementById('cookieToggleButton');
+
     const initialDialog = document.getElementById('initialDialog');
-    const save = document.getElementById('rawCookieSave');
+    const dialogSave = document.getElementById('dialogSave');
     const accept = document.getElementById('rawCookieAccept');
 
-    const state = {
-        hasPrefs: false,
-        userPrefs: {
-            marketing: true,
-            personalisation: true,
-            analytics: true,
+    const checkboxes = {
+        dialog: {
+            marketing: initialDialog.querySelector('.marketing-checkbox'),
+            personalisation: initialDialog.querySelector(
+                '.personalisation-checkbox',
+            ),
+            analytics: initialDialog.querySelector('.analytics-checkbox'),
+        },
+        infoDialog: {
+            necessary: infoDialog.querySelector('.strictly-necessary-checkbox'),
+            marketing: infoDialog.querySelector('.marketing-checkbox'),
+            personalisation: infoDialog.querySelector(
+                '.personalisation-checkbox',
+            ),
+            analytics: infoDialog.querySelector('.analytics-checkbox'),
         },
     };
-    const cookies = getCookies();
+
+    /**
+     * What to Show User on Load
+     *
+     * @param {Object} State
+     */
+    function intialStateToShow(state) {
+        // GET COOKIE
+        // IF RAWCOOKIE
+
+        if (state.hasPrefs) {
+            handleInfoToggle();
+            checkboxes.infoDialog.necessary.setAttribute('checked', true);
+            checkboxes.infoDialog.necessary.setAttribute('disabled', true);
+            if (!state.userPrefs.marketing) {
+                removeMarketingScripts();
+            } else if (state.userPrefs.marketing) {
+                checkboxes.infoDialog.marketing.setAttribute('checked', true);
+            }
+            if (!state.userPrefs.personalisation) {
+                removePersonalisationScripts();
+            } else if (state.userPrefs.personalisation) {
+                checkboxes.infoDialog.personalisation.setAttribute(
+                    'checked',
+                    true,
+                );
+            }
+            if (!state.userPrefs.analytics) {
+                removeAnalyticsScripts();
+            } else if (state.userPrefs.analytics) {
+                checkboxes.infoDialog.analytics.setAttribute('checked', true);
+            }
+        } else {
+            toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+            toggler(initialDialog, 'raw-cookie__dialog--hidden');
+        }
+    }
 
     function getCookies() {
         return document.cookie
@@ -57,39 +92,49 @@ function App() {
         }
     }
 
-    function getUserPrefs() {
-        if (!marketingElem.checked) {
-            console.log('marketing is not checked');
-            // Remove cookies which are not marketing
-        }
-        if (!personalisationElem.checked) {
-            console.log('personalisation is not checked');
-            // Remove cookies which are not personalisation
-        }
-        if (!analyticsElem.checked) {
-            console.log('analytics is not checked');
-            // Remove cookies which are not analyrics
+    function checkPrefs(obj) {
+        const { marketing, personalisation, analytics } = obj;
+        if (!marketing.checked) {
+            state.userPrefs.marketing = false;
+        } else if (marketing.checked) {
+            state.userPrefs.marketing = true;
         }
 
-        // Create an object with Marketing/Analytics/DenyAll
+        if (!personalisation.checked) {
+            state.userPrefs.personalisation = false;
+        } else if (personalisation.checked) {
+            state.userPrefs.personalisation = true;
+        }
+
+        if (!analytics.checked) {
+            state.userPrefs.analytics = false;
+        } else if (analytics.checked) {
+            state.userPrefs.analytics = true;
+        }
+        setUserPrefs(state.userPrefs);
     }
 
     /**
-     * Set Cookies
+     * Set User Prefs
      *
      * @param {Obj}  -  Deserialised Cookie Obj
      */
 
     function setUserPrefs(userPrefs) {
+        state.hasPrefs = true;
         // Get the users cookie preferences if they have any
         // Set the cookie for a year and remember it
         return;
     }
 
-    function removeScripts() {
-        // Analytics is easy
-        // Drift would remove the chat?
+    function removeAnalyticsScripts() {
+        // Disables GA Tracking
+        window[`ga-disable-${config.analyticsCode}`] = true;
+
+        console.log('removed analytics scripts');
     }
+
+    function removeMarketingScripts() {}
 
     function removeCookie(id) {
         document.cookie = `${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
@@ -99,24 +144,31 @@ function App() {
     ## Event Handlers
     --------------------------------------------------------------*/
 
-    function handleSave(e) {
-        console.log('Save Clicked');
-        getUserPrefs();
+    function handleSave() {
+        console.log('Dialog Save Clicked');
+        checkPrefs(checkboxes.dialog);
         // setUserPrefs();
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
+    }
+
+    function handleInfoSave() {
+        console.log('Info Save Clicked');
+        console.log(state);
+        checkPrefs(checkboxes.infoDialog);
+        // setUserPrefs();
+        handleInfoToggle();
     }
 
     function handleAcceptAll() {
-        // Set cookie with year expire for all cookies, plus the preference.
-        console.log('Accept Clicked');
-        // setUserPrefs();
+        state.userPrefs.marketing = true;
+        state.userPrefs.personalisation = true;
+        state.userPrefs.analytics = true;
+        setUserPrefs();
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
     }
 
-    // If no userPrefs cookie then show the small dialog.
-    // If userPrefs show the cookie button
     function handleInfoToggle() {
         if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
             infoDialogWrapper.classList.add(
@@ -147,28 +199,25 @@ function App() {
         }
     }
 
-    /**
-     * What to Show User on Load
-     *
-     * @param {Object} State
-     */
-    function intialStateToShow(state) {
-        if (state.hasPrefs) {
-            handleInfoToggle();
-        } else {
-            toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
-            toggler(initialDialog, 'raw-cookie__dialog--hidden');
-        }
-    }
+    /*--------------------------------------------------------------
+    ## Event Listeners
+    --------------------------------------------------------------*/
 
-    save.addEventListener('click', handleSave);
+    dialogSave.addEventListener('click', handleSave);
+    infoDialogSave.addEventListener('click', handleInfoSave);
+
     accept.addEventListener('click', handleAcceptAll);
     infoDialogClose.addEventListener('click', handleInfoToggle);
     cookieToggleButton.addEventListener('click', handleInfoToggle);
 
+    /*--------------------------------------------------------------
+    ## Init Actions
+    --------------------------------------------------------------*/
+
     intialStateToShow(state);
-    setCookies(cookiesToSet);
-    console.log(cookies);
+    // IF HasPrefs is TRUE
+    // And Marketing || Personalistion || Analytics === false
+    // Expire cookies and remove scripts for each
 }
 
 export default App;

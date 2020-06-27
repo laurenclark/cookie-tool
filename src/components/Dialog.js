@@ -8,21 +8,21 @@ function Dialog() {
     const items = data
         .map((item) => {
             return `<li class="raw-cookie__dialog-list-item">
-                    <label
-                        class="raw-cookie__toggle"
-                        title="${item.title}"
-                        for="${item.id}">
-                        <input
-                            id="${item.id}"
-                            class="raw-cookie__toggle-checkbox"
-                            type="checkbox"
-                        />
-                        <span class="raw-cookie__toggle-switch"></span>
-                        <span class="raw-cookie__toggle-label raw-cookie__label">
-                            ${item.title}
-                        </span>
-                    </label>
-                </li>`;
+                        <label
+                            class="raw-cookie__toggle"
+                            title="${item.title}"
+                            for="${item.id}">
+                            <input
+                                id="${item.id}"
+                                class="raw-cookie__toggle-checkbox ${item.title.toLowerCase()}-checkbox"
+                                type="checkbox"
+                            />
+                            <span class="raw-cookie__toggle-switch"></span>
+                            <span class="raw-cookie__toggle-label raw-cookie__label">
+                                ${item.title}
+                            </span>
+                        </label>
+                    </li>`;
         })
         .join('');
 
@@ -43,10 +43,10 @@ function Dialog() {
             ${items}
         </ul>
         <div class="raw-cookie__button-container">
-            <button class="raw-cookie__button" id="rawCookieSave">
+            <button id="dialogSave" class="raw-cookie__button raw-cookie-save">
                 Save
             </button>
-            <button class="raw-cookie__button" id="rawCookieAccept">
+            <button id="rawCookieAccept" class="raw-cookie__button">
                 Accept All
             </button>
         </div>

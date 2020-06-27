@@ -4,6 +4,9 @@ require('details-polyfill');
 
 function InfoDialog() {
     const items = InfoDialogData.map((item) => {
+        function titleGetter(string) {
+            return string.replace(' ', '-').toLowerCase();
+        }
         function cookiesInfo() {
             if (item.cookies) {
                 return item.cookies
@@ -26,13 +29,13 @@ function InfoDialog() {
         }
         return `<li class="raw-cookie__list-item">
                 <label class="raw-cookie__toggle"
-                    for="${item.title}">
+                    for="${titleGetter(item.title)}">
                     <input
-                        class="raw-cookie__toggle-checkbox"
-                        id="${item.title}"
+                        class="raw-cookie__toggle-checkbox ${titleGetter(
+                            item.title,
+                        )}-checkbox"
+                        id="${titleGetter(item.title)}"
                         type="checkbox"
-                        ${item.checkedByDefault}
-                        ${item.disabledByDefault}
                     />
                     <span class="raw-cookie__toggle-switch"></span>
                     <span class="raw-cookie__toggle-label raw-cookie-label">
@@ -82,7 +85,7 @@ function InfoDialog() {
                 <ul class="raw-cookie__list">
                     ${items}
                 </ul>
-                <button class="raw-cookie__button--full" id="rawCookieInfoSave">
+                <button id="infoDialogSave" class="raw-cookie__button--full">
                     Save
                 </button>
             </div>
