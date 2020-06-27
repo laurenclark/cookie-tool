@@ -1,4 +1,7 @@
 function App(state, scriptsConfig) {
+    /*--------------------------------------------------------------
+    ## InfoDialog Elements
+    --------------------------------------------------------------*/
     const infoDialogClose = document.getElementById('info-dialog-toggle');
     const infoDialog = document.querySelector('.raw-cookie__info-dialog');
     const infoDialogWrapper = document.querySelector(
@@ -6,12 +9,21 @@ function App(state, scriptsConfig) {
     );
     const infoDialogSave = document.getElementById('infoDialogSave');
 
+    /*--------------------------------------------------------------
+    ## Cookie Toggle Button
+    --------------------------------------------------------------*/
     const cookieToggleButton = document.getElementById('cookieToggleButton');
 
+    /*--------------------------------------------------------------
+    ## Initial Dialog
+    --------------------------------------------------------------*/
     const initialDialog = document.getElementById('initialDialog');
     const dialogSave = document.getElementById('dialogSave');
     const accept = document.getElementById('rawCookieAccept');
 
+    /*--------------------------------------------------------------
+    ## Checkboxes
+    --------------------------------------------------------------*/
     const checkboxes = {
         dialog: {
             marketing: initialDialog.querySelector('.marketing-checkbox'),
@@ -63,6 +75,55 @@ function App(state, scriptsConfig) {
         }
     }
 
+    /*--------------------------------------------------------------
+    ## Remove Scripts 
+    --------------------------------------------------------------*/
+
+    function removeAnalyticsScripts() {
+        // Disables GA Tracking
+        window[`ga-disable-${scriptsConfig.analyticsCode}`] = true;
+        // TODO - remove the scripts from scriptsConfig
+    }
+
+    function removeMarketingScripts() {}
+
+    /*--------------------------------------------------------------
+    ## Cookie Actions
+    --------------------------------------------------------------*/
+
+    /**
+     * Create Cookiestring
+     *
+     * @param {String} RAWCOOKIE
+     * @param {String} CookieString (from userPrefs)
+     * @param {Number} Days
+     */
+
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    }
+
+    /**
+     * Remove Cookie (set it to expire)
+     * - Note: Effect is on page reload or revisit
+     *
+     * @param {String} "_ga"
+     */
+
+    function removeCookie(id) {
+        document.cookie = `${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
+    }
+
+    /**
+     * Split the Cookies stored into an Object
+     */
+
     function getCookies() {
         return document.cookie
             .split(';')
@@ -113,36 +174,15 @@ function App(state, scriptsConfig) {
     }
 
     /**
-     * Set User Prefs
+     * Set User Preference Cookie
      *
+     * @param {Object} state.userPrefs
      */
 
     function setUserPrefs(userPrefs) {
         state.hasPrefs = true;
         const cookieString = createCookieString(userPrefs);
         setCookie('RAWCOOKIE', cookieString, 365);
-    }
-
-    function removeAnalyticsScripts() {
-        // Disables GA Tracking
-        window[`ga-disable-${scriptsConfig.analyticsCode}`] = true;
-        // TODO - remove the scripts from scriptsConfig
-    }
-
-    function removeMarketingScripts() {}
-
-    function setCookie(name, value, days) {
-        var expires = '';
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-            expires = '; expires=' + date.toUTCString();
-        }
-        document.cookie = name + '=' + (value || '') + expires + '; path=/';
-    }
-
-    function removeCookie(id) {
-        document.cookie = `${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
     }
 
     /*--------------------------------------------------------------
@@ -152,7 +192,6 @@ function App(state, scriptsConfig) {
     function handleSave() {
         checkPrefs(checkboxes.dialog);
         setUserPrefs(state.userPrefs);
-        console.log(document.cookie);
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
         mirrorState(state);
@@ -165,9 +204,11 @@ function App(state, scriptsConfig) {
     }
 
     function handleAcceptAll() {
-        state.userPrefs.marketing = true;
-        state.userPrefs.personalisation = true;
-        state.userPrefs.analytics = true;
+        state.userPrefs = {
+            marketing: true,
+            personalisation: true,
+            analytics: true,
+        };
         mirrorState(state);
         setUserPrefs(state.userPrefs);
     }
@@ -188,12 +229,12 @@ function App(state, scriptsConfig) {
     }
 
     /**
-     * Toggle Open/Close
-     *
-     * @param {Object} Target
-     * @param {String} ClassToToggle
+* Toggle Open/Close
+*
+* @param {Object} Target
+* @param {String} ClassToToggle
 
-     */
+*/
 
     function toggler(target, className) {
         if (target.classList.contains(className)) {
