@@ -88,7 +88,9 @@ function App(state, scriptsConfig) {
                 scriptSrc = scriptTarget[i];
             }
         }
-        scriptSrc.parentNode.removeChild(scriptSrc);
+        if (scriptSrc) {
+            scriptSrc.parentNode.removeChild(scriptSrc);
+        }
     }
 
     function removeAnalyticsScripts(conf) {
