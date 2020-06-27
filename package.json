@@ -11,7 +11,7 @@
     },
     "browserslist": [
         "IE 11",
-        "last 2 versions and > .2%",
+        "last 2 versions and > 1%",
         "not dead"
     ],
     "license": "MIT",
