@@ -81,7 +81,7 @@ function App(state, config) {
     }
 
     /**
-     * Set Cookies
+     * Create Cookie String
      *
      * @param {Array}  - Array of cookies
      */
