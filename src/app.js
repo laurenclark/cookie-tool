@@ -229,12 +229,11 @@ function App(state, scriptsConfig) {
     }
 
     /**
-* Toggle Open/Close
-*
-* @param {Object} Target
-* @param {String} ClassToToggle
-
-*/
+     * Toggle Open/Close
+     *
+     * @param {Object} Target
+     * @param {String} ClassToToggle
+     */
 
     function toggler(target, className) {
         if (target.classList.contains(className)) {
