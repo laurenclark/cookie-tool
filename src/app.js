@@ -85,7 +85,9 @@ function App(state, scriptsConfig) {
         // TODO - remove the scripts from scriptsConfig
     }
 
-    function removeMarketingScripts() {}
+    function removeMarketingScripts() {
+        // TODO - remove the scripts from scriptsConfig
+    }
 
     /*--------------------------------------------------------------
     ## Cookie Actions
@@ -199,7 +201,7 @@ function App(state, scriptsConfig) {
 
     function handleInfoSave() {
         checkPrefs(checkboxes.infoDialog);
-        // setUserPrefs();
+        setUserPrefs(state.userPrefs);
         handleInfoToggle();
     }
 
@@ -247,19 +249,25 @@ function App(state, scriptsConfig) {
     ## Event Listeners
     --------------------------------------------------------------*/
 
-    dialogSave.addEventListener('click', handleSave);
+    infoDialogClose.addEventListener('click', handleInfoToggle);
     infoDialogSave.addEventListener('click', handleInfoSave);
 
+    dialogSave.addEventListener('click', handleSave);
     accept.addEventListener('click', handleAcceptAll);
-    infoDialogClose.addEventListener('click', handleInfoToggle);
+
     cookieToggleButton.addEventListener('click', handleInfoToggle);
 
     /*--------------------------------------------------------------
     ## Init Actions
     --------------------------------------------------------------*/
 
+    // TODO - onLoad
     // Get the cookie
     // Add it to state
+    // then mirror state
+    // read the cookie
+    // if it's changed set it again
+    // remove scripts
     mirrorState(state);
 }
 
