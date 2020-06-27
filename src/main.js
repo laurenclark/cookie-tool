@@ -43,7 +43,5 @@ document.body.insertBefore(template, document.body.firstChild);
 
 window.addEventListener('DOMContentLoaded', function onLoad() {
     // Init
-    console.info('RawCookie Initialised');
     App(state, config);
-    console.log(state.userPrefs);
 });
