@@ -1,4 +1,4 @@
-function App(state, scriptsscriptsConfig) {
+function App(state, scriptsConfig) {
     const infoDialogClose = document.getElementById('info-dialog-toggle');
     const infoDialog = document.querySelector('.raw-cookie__info-dialog');
     const infoDialogWrapper = document.querySelector(
