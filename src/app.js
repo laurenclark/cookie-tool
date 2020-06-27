@@ -91,7 +91,15 @@ function App() {
         // Drift would remove the chat?
     }
 
-    function handleSave() {
+    function removeCookie(id) {
+        document.cookie = `${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
+    }
+
+    /*--------------------------------------------------------------
+    ## Event Handlers
+    --------------------------------------------------------------*/
+
+    function handleSave(e) {
         console.log('Save Clicked');
         getUserPrefs();
         // setUserPrefs();
