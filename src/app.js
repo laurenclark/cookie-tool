@@ -1,3 +1,4 @@
+import { scriptsConfig } from './config/ScriptsConfig';
 function App(state, scriptsConfig) {
     /*--------------------------------------------------------------
     ## InfoDialog Elements
@@ -52,7 +53,7 @@ function App(state, scriptsConfig) {
             checkboxes.infoDialog.necessary.setAttribute('checked', true);
             checkboxes.infoDialog.necessary.setAttribute('disabled', true);
             if (!state.userPrefs.marketing) {
-                removeMarketingScripts();
+                marketingScripts(scriptsConfig);
             } else if (state.userPrefs.marketing) {
                 checkboxes.infoDialog.marketing.setAttribute('checked', true);
             }
@@ -65,7 +66,7 @@ function App(state, scriptsConfig) {
                 );
             }
             if (!state.userPrefs.analytics) {
-                removeAnalyticsScripts();
+                removeAnalyticsScripts(scriptsConfig);
             } else if (state.userPrefs.analytics) {
                 checkboxes.infoDialog.analytics.setAttribute('checked', true);
             }
@@ -79,14 +80,25 @@ function App(state, scriptsConfig) {
     ## Remove Scripts 
     --------------------------------------------------------------*/
 
-    function removeAnalyticsScripts() {
-        // Disables GA Tracking
-        window[`ga-disable-${scriptsConfig.analyticsCode}`] = true;
-        // TODO - remove the scripts from scriptsConfig
+    function removeScript(source) {
+        const scriptTarget = document.head.querySelectorAll('script');
+        let scriptSrc = '';
+        for (let i = 0; scriptTarget.length > i; i += 1) {
+            if (scriptTarget[i].src === source) {
+                scriptSrc = scriptTarget[i];
+            }
+        }
+        scriptSrc.parentNode.removeChild(scriptSrc);
     }
 
-    function removeMarketingScripts() {
-        // TODO - remove the scripts from scriptsConfig
+    function removeAnalyticsScripts(conf) {
+        // Disables GA Tracking
+        window[`ga-disable-${conf.analyticsCode}`] = true;
+        removeScript(conf.analyticsScripts);
+    }
+
+    function marketingScripts(conf) {
+        removeScript(conf.marketingScripts);
     }
 
     /*--------------------------------------------------------------
