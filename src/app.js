@@ -156,7 +156,6 @@ function App(state, config) {
         checkPrefs(checkboxes.infoDialog);
         // setUserPrefs();
         handleInfoToggle();
-        mirrorState(state);
     }
 
     function handleAcceptAll() {
