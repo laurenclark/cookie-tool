@@ -83,13 +83,15 @@ function App(state, config) {
     /**
      * Create Cookie String
      *
-     * @param {Array}  - Array of cookies
+     * @param {Object}  - Object to iterate over
      */
 
-    function setCookies(array) {
+    function createCookieString(array) {
+        let cookieString = [];
         for (let [key, value] of Object.entries(array)) {
-            document.cookie = `${key}=${value}`;
+            cookieString.push(`${key}=${value}`);
         }
+        return cookieString.join(',');
     }
 
     function checkPrefs(obj) {
@@ -117,21 +119,18 @@ function App(state, config) {
     /**
      * Set User Prefs
      *
-     * @param {Obj}  -  Deserialised Cookie Obj
      */
 
     function setUserPrefs(userPrefs) {
         state.hasPrefs = true;
-        // Get the users cookie preferences if they have any
-        // Set the cookie for a year and remember it
-        return;
+        const cookieString = createCookieString(userPrefs);
+        setCookie('RAWCOOKIE', cookieString, 365);
     }
 
     function removeAnalyticsScripts() {
         // Disables GA Tracking
         window[`ga-disable-${config.analyticsCode}`] = true;
-
-        console.log('removed analytics scripts');
+        // TODO - remove the scripts from config
     }
 
     function removeMarketingScripts() {}
@@ -156,7 +155,8 @@ function App(state, config) {
 
     function handleSave() {
         checkPrefs(checkboxes.dialog);
-        // setUserPrefs();
+        setUserPrefs(state.userPrefs);
+        console.log(document.cookie);
         toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
         toggler(initialDialog, 'raw-cookie__dialog--hidden');
         mirrorState(state);
@@ -172,10 +172,8 @@ function App(state, config) {
         state.userPrefs.marketing = true;
         state.userPrefs.personalisation = true;
         state.userPrefs.analytics = true;
-        setUserPrefs();
         mirrorState(state);
-        toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
-        toggler(initialDialog, 'raw-cookie__dialog--hidden');
+        setUserPrefs(state.userPrefs);
     }
 
     function handleInfoToggle() {
@@ -223,10 +221,9 @@ function App(state, config) {
     ## Init Actions
     --------------------------------------------------------------*/
 
+    // Get the cookie
+    // Add it to state
     mirrorState(state);
-    // IF HasPrefs is TRUE
-    // And Marketing || Personalistion || Analytics === false
-    // Expire cookies and remove scripts for each
 }
 
 export default App;
