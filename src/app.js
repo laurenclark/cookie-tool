@@ -16,7 +16,7 @@ function App(state, scriptsConfig) {
     const cookieToggleButton = document.getElementById('cookieToggleButton');
 
     /*--------------------------------------------------------------
-    ## Initial Dialog
+    ## (Initial) Dialog Elements
     --------------------------------------------------------------*/
     const initialDialog = document.getElementById('initialDialog');
     const dialogSave = document.getElementById('dialogSave');
@@ -116,17 +116,16 @@ function App(state, scriptsConfig) {
      */
 
     function setCookie(name, value, days) {
-        var expires = '';
+        let expires = '';
         if (days) {
-            var date = new Date();
+            const date = new Date();
             date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-            expires = '; expires=' + date.toUTCString();
+            expires = 'expires=' + date.toUTCString();
         }
 
-        // You can't set secure cookies from http!
-        // document.cookie =
-        //     name + '=' + (value || '') + expires + '; path=/; secure';
-        document.cookie = name + '=' + (value || '') + expires + '; path=/;';
+        // You can't set (https) secure cookies from http!
+        // document.cookie = `${name}=${value}; ${expires}; path=/; secure`;
+        document.cookie = `${name}=${value}; ${expires}; path=/;`;
     }
 
     /**
@@ -221,6 +220,8 @@ function App(state, scriptsConfig) {
         checkPrefs(checkboxes.infoDialog);
         setUserPrefs(state.userPrefs);
         handleInfoToggle();
+        mirrorState(state);
+        console.log(state.userPrefs);
     }
 
     function handleAcceptAll() {
@@ -287,6 +288,9 @@ function App(state, scriptsConfig) {
     // if it's changed set it again
     // remove scripts
     // BUG - InfoState not saving
+
+    // fire mirror state before checkprefs
+    // Vals are truthy because string, they need to be bool
     function onInit() {
         let cookies = getCookies();
         if (cookies.RAWCOOKIE) {
@@ -296,16 +300,19 @@ function App(state, scriptsConfig) {
                 .reduce(
                     (accumulator, [key, value]) => ({
                         ...accumulator,
-                        [key.trim()]: decodeURIComponent(value),
+                        [key.trim()]: value,
                     }),
                     {},
                 );
             state.userPrefs = prefsToSet;
-            checkPrefs(checkboxes.infoDialog);
-        }
-        mirrorState(state);
-    }
+            console.log(prefsToSet);
 
+            mirrorState(state);
+            checkPrefs(checkboxes.infoDialog);
+        } else {
+            mirrorState(state);
+        }
+    }
     onInit();
 }
 
