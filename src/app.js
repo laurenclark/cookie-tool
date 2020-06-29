@@ -16,7 +16,7 @@ function App(state, scriptsConfig) {
     const cookieToggleButton = document.getElementById('cookieToggleButton');
 
     /*--------------------------------------------------------------
-    ## Initial Dialog
+    ## (Initial) Dialog Elements
     --------------------------------------------------------------*/
     const initialDialog = document.getElementById('initialDialog');
     const dialogSave = document.getElementById('dialogSave');
@@ -80,6 +80,11 @@ function App(state, scriptsConfig) {
     ## Remove Scripts 
     --------------------------------------------------------------*/
 
+    /**
+     * Remove Script from Head
+     *
+     * @param {String} "https://url.com"
+     */
     function removeScript(source) {
         const scriptTarget = document.head.querySelectorAll('script');
         let scriptSrc = '';
@@ -93,12 +98,22 @@ function App(state, scriptsConfig) {
         }
     }
 
+    /**
+     * Determine Analytics Scripts to Remove
+     *
+     * @param {String} "https://url.com"
+     */
     function removeAnalyticsScripts(conf) {
         // Disables GA Tracking
         window[`ga-disable-${conf.analyticsCode}`] = true;
         removeScript(conf.analyticsScripts);
     }
 
+    /**
+     * Determine Marketing Scripts to Remove
+     *
+     * @param {String} "https://url.com"
+     */
     function marketingScripts(conf) {
         removeScript(conf.marketingScripts);
     }
@@ -116,13 +131,16 @@ function App(state, scriptsConfig) {
      */
 
     function setCookie(name, value, days) {
-        var expires = '';
+        let expires = '';
         if (days) {
-            var date = new Date();
+            const date = new Date();
             date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-            expires = '; expires=' + date.toUTCString();
+            expires = 'expires=' + date.toUTCString();
         }
-        document.cookie = name + '=' + (value || '') + expires + '; path=/';
+
+        // You can't set (https) secure cookies from http!
+        // document.cookie = `${name}=${value}; ${expires}; path=/; secure`;
+        document.cookie = `${name}=${value}; ${expires}; path=/;`;
     }
 
     /**
@@ -138,6 +156,7 @@ function App(state, scriptsConfig) {
 
     /**
      * Split the Cookies stored into an Object
+     * @returns {Object}
      */
 
     function getCookies() {
@@ -157,18 +176,25 @@ function App(state, scriptsConfig) {
      * Create Cookie String
      *
      * @param {Object}  - Object to iterate over
+     * @returns {String}
      */
 
-    function createCookieString(array) {
+    function createCookieString(obj) {
         let cookieString = [];
-        for (let [key, value] of Object.entries(array)) {
+        for (let [key, value] of Object.entries(obj)) {
             cookieString.push(`${key}=${value}`);
         }
         return cookieString.join(',');
     }
 
+    /**
+     * Add checkbox values to state.userPrefs
+     *
+     * @param {Object} state.userPrefs
+     */
     function checkPrefs(obj) {
         const { marketing, personalisation, analytics } = obj;
+        state.userPrefs.necessary = true;
         if (!marketing.checked) {
             state.userPrefs.marketing = false;
         } else if (marketing.checked) {
@@ -201,6 +227,21 @@ function App(state, scriptsConfig) {
         setCookie('RAWCOOKIE', cookieString, 365);
     }
 
+    /**
+     * Convert "true"/"false" to Boolean
+     *
+     * @param {String} "True/False"
+     * @returns {Boolean}
+     */
+
+    function convertStringToBool(val) {
+        if (val === 'true') {
+            return true;
+        } else if (val === 'false') {
+            return false;
+        }
+    }
+
     /*--------------------------------------------------------------
     ## Event Handlers
     --------------------------------------------------------------*/
@@ -217,10 +258,12 @@ function App(state, scriptsConfig) {
         checkPrefs(checkboxes.infoDialog);
         setUserPrefs(state.userPrefs);
         handleInfoToggle();
+        mirrorState(state);
     }
 
     function handleAcceptAll() {
         state.userPrefs = {
+            necessary: true,
             marketing: true,
             personalisation: true,
             analytics: true,
@@ -275,14 +318,27 @@ function App(state, scriptsConfig) {
     ## Init Actions
     --------------------------------------------------------------*/
 
-    // TODO - onLoad
-    // Get the cookie
-    // Add it to state
-    // then mirror state
-    // read the cookie
-    // if it's changed set it again
-    // remove scripts
-    mirrorState(state);
+    function onInit() {
+        let cookies = getCookies();
+        if (cookies.RAWCOOKIE) {
+            state.hasPrefs = true;
+            const prefsToSet = cookies.RAWCOOKIE.split(',')
+                .map((cookie) => cookie.split('='))
+                .reduce(
+                    (accumulator, [key, value]) => ({
+                        ...accumulator,
+                        [key.trim()]: convertStringToBool(value),
+                    }),
+                    {},
+                );
+            state.userPrefs = prefsToSet;
+            mirrorState(state);
+            checkPrefs(checkboxes.infoDialog);
+        } else {
+            mirrorState(state);
+        }
+    }
+    onInit();
 }
 
 export default App;
