@@ -4,7 +4,7 @@
 // import './styles/main.sass';
 
 import { State as state } from './config/State';
-import { scriptsConfig } from './config/ScriptsConfig';
+import { config } from './config/Config';
 
 import App from './app';
 import InjectTemplate from './modules/InjectTemplate';
@@ -13,6 +13,6 @@ import InjectStyles from './modules/InjectStyles';
 window.addEventListener('DOMContentLoaded', function onLoad() {
     // Init
     InjectTemplate();
-    App(state, scriptsConfig);
+    App(state, config);
     InjectStyles();
 });

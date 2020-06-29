@@ -1,5 +1,4 @@
-import { scriptsConfig } from './config/ScriptsConfig';
-function App(state, scriptsConfig) {
+function App(state, config) {
     /*--------------------------------------------------------------
     ## InfoDialog Elements
     --------------------------------------------------------------*/
@@ -53,12 +52,12 @@ function App(state, scriptsConfig) {
             checkboxes.infoDialog.necessary.setAttribute('checked', true);
             checkboxes.infoDialog.necessary.setAttribute('disabled', true);
             if (!state.userPrefs.marketing) {
-                marketingScripts(scriptsConfig);
+                disableMarketing(config);
             } else if (state.userPrefs.marketing) {
                 checkboxes.infoDialog.marketing.setAttribute('checked', true);
             }
             if (!state.userPrefs.personalisation) {
-                // removePersonalisationScripts();
+                disablePersonalisation(config);
             } else if (state.userPrefs.personalisation) {
                 checkboxes.infoDialog.personalisation.setAttribute(
                     'checked',
@@ -66,7 +65,7 @@ function App(state, scriptsConfig) {
                 );
             }
             if (!state.userPrefs.analytics) {
-                removeAnalyticsScripts(scriptsConfig);
+                disableAnalytics(config);
             } else if (state.userPrefs.analytics) {
                 checkboxes.infoDialog.analytics.setAttribute('checked', true);
             }
@@ -99,23 +98,53 @@ function App(state, scriptsConfig) {
     }
 
     /**
-     * Determine Analytics Scripts to Remove
+     * Disable Analytics Scripts/Cookies
      *
-     * @param {String} "https://url.com"
+     * @param {Object} (Config)
      */
-    function removeAnalyticsScripts(conf) {
-        // Disables GA Tracking
-        window[`ga-disable-${conf.analyticsCode}`] = true;
-        removeScript(conf.analyticsScripts);
+    function disableAnalytics(conf) {
+        if (conf.scripts.analytics.length > 0) {
+            // Disables GA Tracking
+            window[`ga-disable-${conf.analyticsCode}`] = true;
+            removeScript(conf.scripts.analytics);
+        }
+        if (conf.cookies.analytics.length > 0) {
+            for (let i = 0; conf.cookies.analytics.length < i; i += 1) {
+                removeCookie(conf.cookies.analytics[i]);
+            }
+        }
     }
 
     /**
-     * Determine Marketing Scripts to Remove
+     * Disable Personalisation Scripts/Cookies
+     *
+     * @param {Object} (Config)
+     */
+    function disablePersonalisation(conf) {
+        if (conf.scripts.personalisation.length > 0) {
+            removeScript(conf.scripts.personalisation);
+        }
+        if (conf.cookies.personalisation.length > 0) {
+            for (let i = 0; conf.cookies.personalisation.length < i; i += 1) {
+                removeCookie(conf.cookies.personalisation[i]);
+            }
+        }
+    }
+
+    /**
+     * Disable Marketing Scripts/Cookies
      *
      * @param {String} "https://url.com"
      */
-    function marketingScripts(conf) {
-        removeScript(conf.marketingScripts);
+    function disableMarketing(conf) {
+        if (conf.scripts.marketing.length > 0) {
+            removeScript(conf.scripts.marketing);
+        }
+        if (conf.cookies.marketing.length > 0) {
+            for (let i = 0; conf.cookies.marketing.length < i; i += 1) {
+                removeCookie(conf.cookies.marketing[i]);
+            }
+        }
     }
 
     /*--------------------------------------------------------------
