@@ -80,6 +80,11 @@ function App(state, scriptsConfig) {
     ## Remove Scripts 
     --------------------------------------------------------------*/
 
+    /**
+     * Remove Script from Head
+     *
+     * @param {String} "https://url.com"
+     */
     function removeScript(source) {
         const scriptTarget = document.head.querySelectorAll('script');
         let scriptSrc = '';
@@ -93,12 +98,22 @@ function App(state, scriptsConfig) {
         }
     }
 
+    /**
+     * Determine Analytics Scripts to Remove
+     *
+     * @param {String} "https://url.com"
+     */
     function removeAnalyticsScripts(conf) {
         // Disables GA Tracking
         window[`ga-disable-${conf.analyticsCode}`] = true;
         removeScript(conf.analyticsScripts);
     }
 
+    /**
+     * Determine Marketing Scripts to Remove
+     *
+     * @param {String} "https://url.com"
+     */
     function marketingScripts(conf) {
         removeScript(conf.marketingScripts);
     }
@@ -141,6 +156,7 @@ function App(state, scriptsConfig) {
 
     /**
      * Split the Cookies stored into an Object
+     * @returns {Object}
      */
 
     function getCookies() {
@@ -160,16 +176,22 @@ function App(state, scriptsConfig) {
      * Create Cookie String
      *
      * @param {Object}  - Object to iterate over
+     * @returns {String}
      */
 
-    function createCookieString(array) {
+    function createCookieString(obj) {
         let cookieString = [];
-        for (let [key, value] of Object.entries(array)) {
+        for (let [key, value] of Object.entries(obj)) {
             cookieString.push(`${key}=${value}`);
         }
         return cookieString.join(',');
     }
 
+    /**
+     * Add checkbox values to state.userPrefs
+     *
+     * @param {Object} state.userPrefs
+     */
     function checkPrefs(obj) {
         const { marketing, personalisation, analytics } = obj;
         state.userPrefs.necessary = true;
@@ -204,6 +226,13 @@ function App(state, scriptsConfig) {
         const cookieString = createCookieString(userPrefs);
         setCookie('RAWCOOKIE', cookieString, 365);
     }
+
+    /**
+     * Convert "true"/"false" to Boolean
+     *
+     * @param {String} "True/False"
+     * @returns {Boolean}
+     */
 
     function convertStringToBool(val) {
         if (val === 'true') {
