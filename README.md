@@ -25,8 +25,6 @@ __Run Prod Build to Dist__
 
 `yarn build`
 
--> The main.js file in "dist" is what you want to use. Probably rename to something like "rawcookie.js" to include in a script.
-
 __✏️✏️ To Edit the Styles__
 
 1. Include main.sass in src/main.js at the top 
@@ -38,4 +36,6 @@ __✏️✏️ To Edit the Styles__
 __Nice to Have__
 
 - Automate the minifying and stringing of the styles.
-- Automate renaming the script to output as rawCookie.js on compile.
+- Automate renaming the script to output as rawCookie.js on compile (strip the suffix) 
+- Add fetch with polyfill to get all the config data + loading styles for disclosures
+- Add all the global config like privacy policy link, bools to show etc.
