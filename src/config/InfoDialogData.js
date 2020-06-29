@@ -22,6 +22,12 @@ const InfoDialogData = [
                 expiry: 'Session',
                 purpose: 'Marketing',
             },
+            {
+                name: 'DFTT_END_USER_PREV_BOOTSTRAPPED',
+                provider: 'Drift Livechat',
+                expiry: '2 Years',
+                purpose: 'Marketing',
+            },
         ],
     },
     {
@@ -38,8 +44,8 @@ const InfoDialogData = [
             {
                 name: '_ga',
                 provider: 'Google',
-                expiry: 'Session',
-                purpose: 'Session Analytics',
+                expiry: '2 Years',
+                purpose: 'Analytics',
             },
             {
                 name: '_gid',

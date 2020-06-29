@@ -1,6 +1,10 @@
 const config = {
     cookies: {
-        marketing: ['driftt_aid', 'driftt_sid'],
+        marketing: [
+            'driftt_aid',
+            'driftt_sid',
+            'DFTT_END_USER_PREV_BOOTSTRAPPED',
+        ],
         analytics: ['_ga', '_gid'],
         personalisation: [],
     },
