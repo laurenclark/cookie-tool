@@ -172,6 +172,7 @@ function App(state, scriptsConfig) {
 
     function checkPrefs(obj) {
         const { marketing, personalisation, analytics } = obj;
+        state.userPrefs.necessary = true;
         if (!marketing.checked) {
             state.userPrefs.marketing = false;
         } else if (marketing.checked) {
@@ -204,6 +205,14 @@ function App(state, scriptsConfig) {
         setCookie('RAWCOOKIE', cookieString, 365);
     }
 
+    function convertStringToBool(val) {
+        if (val === 'true') {
+            return true;
+        } else if (val === 'false') {
+            return false;
+        }
+    }
+
     /*--------------------------------------------------------------
     ## Event Handlers
     --------------------------------------------------------------*/
@@ -221,11 +230,11 @@ function App(state, scriptsConfig) {
         setUserPrefs(state.userPrefs);
         handleInfoToggle();
         mirrorState(state);
-        console.log(state.userPrefs);
     }
 
     function handleAcceptAll() {
         state.userPrefs = {
+            necessary: true,
             marketing: true,
             personalisation: true,
             analytics: true,
@@ -280,17 +289,6 @@ function App(state, scriptsConfig) {
     ## Init Actions
     --------------------------------------------------------------*/
 
-    // TODO - onLoad
-    // Get the cookie
-    // Add it to state
-    // then mirror state
-    // read the cookie
-    // if it's changed set it again
-    // remove scripts
-    // BUG - InfoState not saving
-
-    // fire mirror state before checkprefs
-    // Vals are truthy because string, they need to be bool
     function onInit() {
         let cookies = getCookies();
         if (cookies.RAWCOOKIE) {
@@ -300,13 +298,11 @@ function App(state, scriptsConfig) {
                 .reduce(
                     (accumulator, [key, value]) => ({
                         ...accumulator,
-                        [key.trim()]: value,
+                        [key.trim()]: convertStringToBool(value),
                     }),
                     {},
                 );
             state.userPrefs = prefsToSet;
-            console.log(prefsToSet);
-
             mirrorState(state);
             checkPrefs(checkboxes.infoDialog);
         } else {
