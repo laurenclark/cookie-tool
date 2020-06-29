@@ -9,7 +9,20 @@ const InfoDialogData = [
         title: 'Marketing',
         description:
             'Used to deliver advertising that is more relevant to you and your interests. They are also used to limit the number of times you see an advertisement as well as help measure the effectiveness of the advertising campaign. They are usually placed by advertising networks with the website operator’s permission.',
-        cookies: null,
+        cookies: [
+            {
+                name: 'driftt_aid',
+                provider: 'Drift Livechat',
+                expiry: 'Session',
+                purpose: 'Marketing',
+            },
+            {
+                name: 'driftt_sid',
+                provider: 'Drift Livechat',
+                expiry: 'Session',
+                purpose: 'Marketing',
+            },
+        ],
     },
     {
         title: 'Personalisation',

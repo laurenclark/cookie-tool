@@ -1,6 +1,6 @@
 const config = {
     cookies: {
-        marketing: ['drifft'],
+        marketing: ['driftt_aid', 'driftt_sid'],
         analytics: ['_ga', '_gid'],
         personalisation: [],
     },
