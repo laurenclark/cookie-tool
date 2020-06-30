@@ -2,7 +2,7 @@ import InfoDialogData from '../config/InfoDialogData';
 import CloseButton from '../assets/close-button.js';
 require('details-polyfill');
 
-function InfoDialog() {
+function InfoDialog(config) {
     const items = InfoDialogData.map((item) => {
         function titleGetter(string) {
             return string.replace(' ', '-').toLowerCase();
@@ -32,7 +32,7 @@ function InfoDialog() {
                     for="${titleGetter(item.title)}">
                     <input
                         class="raw-cookie__toggle-checkbox ${titleGetter(
-                            item.title,
+                            item.title
                         )}-checkbox"
                         id="${titleGetter(item.title)}"
                         type="checkbox"
@@ -67,26 +67,17 @@ function InfoDialog() {
                     ${CloseButton}
                     </button>
                     <p class="raw-cookie__info-dialog__header-title">
-                        Storage Preferences
+                        ${config.settings.title}
                     </p>
                     <p class="raw-cookie__info-dialog__header-description">
-                        When you visit web sites, they may store or retrieve
-                        data in your web browser. This storage is often
-                        necessary for basic functionality of the web site or the
-                        storage may be used for the purposes of marketing,
-                        analytics, and personalization of the web site such as
-                        storing your preferences. Privacy is important to us so
-                        you have the option of disabling certain types of
-                        storage that may not be necessary to the basic
-                        functioning of the web site. Blocking categories may
-                        impact your experience on the web site.
+                        ${config.settings.description}
                     </p>
                 </div>
                 <ul class="raw-cookie__list">
                     ${items}
                 </ul>
                 <button id="infoDialogSave" class="raw-cookie__button--full">
-                    Save
+                    ${config.settings.save_text}
                 </button>
             </div>
         </div>`;

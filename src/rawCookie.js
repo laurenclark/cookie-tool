@@ -12,7 +12,7 @@ import InjectStyles from './modules/InjectStyles';
 
 window.addEventListener('DOMContentLoaded', function onLoad() {
     // Init
-    InjectTemplate();
+    InjectTemplate(config);
     App(state, config);
     InjectStyles();
 });

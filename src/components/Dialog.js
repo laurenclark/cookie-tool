@@ -1,11 +1,5 @@
-function Dialog() {
-    const data = [
-        { title: 'Marketing', id: 'rawCookieMarketing' },
-        { title: 'Personalisation', id: 'rawCookiePersonalisation' },
-        { title: 'Analytics', id: 'rawCookieAnalytics' },
-    ];
-
-    const items = data
+function Dialog(config) {
+    const items = config.initialDialog
         .map((item) => {
             return `<li class="raw-cookie__dialog-list-item">
                         <label
@@ -28,14 +22,12 @@ function Dialog() {
 
     const template = `<aside id="initialDialog" class="raw-cookie__dialog raw-cookie__dialog--hidden">
         <span>
-            This website stores data such as cookies to enable important site
-            functionality including analytics, targeting, and personalization. You
-            may alter your preferences at any time or accept the default settings.
+            ${config.settings.privacy_policy_description}
             <a
-                href="https://www.rawnet.com/privacy-policy"
+                href="${config.settings.privacy_policy_url}"
                 class="raw-cookie__content-link"
                 target="_blank">
-                data storage policy
+                ${config.settings.privacy_policy_text}
             </a>
         </span>
 
@@ -44,10 +36,10 @@ function Dialog() {
         </ul>
         <div class="raw-cookie__button-container">
             <button id="dialogSave" class="raw-cookie__button raw-cookie-save">
-                Save
+                ${config.settings.save_text}
             </button>
             <button id="rawCookieAccept" class="raw-cookie__button">
-                Accept All
+                ${config.settings.accept_all_text}
             </button>
         </div>
     </aside>`;
