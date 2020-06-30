@@ -13,29 +13,57 @@ Uses:-
 - Yarn
 
 
-__Run Development output to Development__
+__Run Development__
 
 `yarn dev`
+
+You can edit the sass and JS here with hot module reloading. Oututs to `development`
+Sass gets compiled by Parcel. You need to include the path to the main.sass file in the index.html head
+
+public/index -> `<link rel="stylesheet" href="../src/styles/main.sass" />`
+
+If you want to test the injected styles, you can comment out the above line in the head and remove the `if (process.env.NODE_ENV === 'production')`
+in src/rawCookie.js
 
 __Run Clean__
 
 `yarn clean`
 
-__Run Prod Build to Dist__
+ This wipes the Development and Dist folders, and the cache. 
 
-`yarn build`
+__Compile JS__
 
-__✏️✏️ To Edit the Styles__
+`yarn build-js`
+ 
+Compile the JS package using Babel and Babel Core JS
+Regenerator package is needed if you want to use promises and imports/exports
 
-1. Include main.sass in src/main.js at the top 
-2. Make and preview your edits
-3. Run "Build" 
-4. Take the minified styles and add them to the string in src/compiledStyles.js to be injected into the head
-5. Comment out main.sass or next time you run there will be conflict between the styles in head and the sass 
+⚠️ If you're not supporting IE, it's recommended you change the `browserslist` in `package.json`
+to not target it and older browsers, then recompile/rebundle. You can shave off about 40kb of excess JS and CSS.
+
+__Compile Styles__
+
+Runs using dart-sass on the CLI. Autoprefixes and minifies, outputs to `dist` 
+
+__Update Styles To Inject__
+
+`yarn update-styles-to-inject`
+
+Requires a compiled and minified css file to be in `dist` 
+Reads the file and converts it to a .js export `src/styles/compiledCSS.js`
+
+__Bundle__
+
+`yarn bundle-for-prod`
+
+Runs `clean` then `build-styles` then `update-styles-to-inject` and finally `build-js`
+Compiles the sass, recreates the JS expport for use in rawCookie.js for injection and then bundles the JS again including the changed styles.
+
+If you only changed the JS you only need to run `build-js`
 
 __Nice to Have__
-
-- Automate the minifying and stringing of the styles.
-- Automate renaming the script to output as rawCookie.js on compile (strip the suffix) 
 - Add fetch with polyfill to get all the config data + loading styles for disclosures
-- Add all the global config like privacy policy link, bools to show etc.
+
+- <del>✅ Automate the minifying and stringing of the styles.</del>
+- <del>✅ Automate renaming the script to output as rawCookie.js on compile (strip the suffix) </del>
+- <del>✅ Add all the global config like privacy policy link, bools to show etc. </del>
