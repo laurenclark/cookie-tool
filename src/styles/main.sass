@@ -1,4 +1,6 @@
+@import ./variables/_colors
 @import ./switches/original-switch
+// @import ./switches/emoji-switch
 
 .raw-cookie
     $this: &
@@ -23,8 +25,8 @@
         font-size: 1em
         line-height: 1.25
         align-items: center
-        background: #ff0063
-        color: #fff
+        background: $primary
+        color: $secondary
         position: fixed
         z-index: 2147483637
         padding: 1.5em
@@ -39,7 +41,6 @@
         max-height: calc(100vh - 2em)
         bottom: 1em
         left: 1em
-        border: 1px solid white
         #{$this}__toggle-label
             margin: 0 0.5em
         &--hidden
@@ -51,7 +52,7 @@
         box-sizing: border-box
         position: fixed
         top: 0
-        background: #fff
+        background: $secondary
         color: #000
         max-width: 20em
         height: 100vh
@@ -148,7 +149,7 @@
             line-height: 1.25
             position: relative
             &:focus
-                color: #00030d
+                color: $button-alt
                 outline: none
 
         &__list
@@ -169,18 +170,6 @@
         display: flex
         flex-wrap: wrap
         margin: 0 0 1em 0
-
-    &__toggle
-        cursor: pointer
-        line-height: 1.25
-        position: relative
-
-    &__toggle
-        align-items: center
-        display: flex
-        justify-content: flex-start
-        margin: 0.25em 0
-        position: relative
 
     button#{$this}__widget
         cursor: pointer
@@ -211,7 +200,7 @@
         display: inline-block
         padding: 0 0.125em
         text-transform: capitalize
-        color: #000c36
+        color: $link
 
     &__button-container
         display: flex
@@ -233,7 +222,7 @@
         transition-duration: 200ms
         transition-property: background-color
         transition-timing-function: ease-out
-        background-color: #000c36
+        background-color: $button
         border-color: #fff
         color: #fff
         &--full
@@ -243,64 +232,5 @@
             margin: 1em 0 0
 
     &__button:hover
-        background: #00030d
+        background: $button-alt
         outline: none
-
-    &__toggle
-        align-items: center
-        display: flex
-        justify-content: flex-start
-        margin: 0.25em 0
-        position: relative
-        cursor: pointer
-
-    &__toggle-switch
-        background-color: #d2cfff
-
-    &__toggle-switch
-        color: transparent
-        line-height: 0
-        text-indent: -9999px
-        width: 44px
-        height: 22px
-        display: block
-        border-radius: 10px
-        position: relative
-        transition-duration: 200ms
-        transition-property: background-color
-        transition-timing-function: ease-out
-
-    &__toggle-switch::after
-        background: white
-        content: ""
-        position: absolute
-        top: 2px
-        left: 2px
-        width: 18px
-        height: 18px
-        border-radius: 9px
-        transition: 0.3s
-
-    &__toggle-checkbox
-        height: 1px
-        width: 1px
-        margin: -1px
-        opacity: 0
-        position: absolute
-
-    &__toggle-switch::after
-        background-color: #fff
-
-    &__dialog-list-item
-        display: flex
-        margin-top: 0
-
-    &__toggle-checkbox:checked + &__toggle-switch
-        background-color: #37cd8f
-
-    &__toggle-checkbox:checked + &__toggle-switch::after
-        left: calc(100% - 2px)
-        transform: translateX(-100%)
-
-    &__toggle-checkbox:disabled + &__toggle-switch
-        opacity: 0.3
