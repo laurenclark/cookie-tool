@@ -5,8 +5,8 @@
     "description": "PECR Cookie plugin for websites",
     "main": "rawCookie.js",
     "scripts": {
-        "dev": "npm run clean && parcel public/index.html --out-dir development -p 3000",
-        "build": "parcel build --no-source-maps public/index.html --out-dir dist --public-url ./",
+        "dev": "NODE_ENV=development npm run clean && parcel public/index.html --out-dir development -p 3000",
+        "build": "NODE_ENV=production parcel build --no-cache --no-source-maps --no-content-hash src/rawCookie.js --out-dir dist --out-file rawCookie.js --public-url ./",
         "clean": "rimraf ./development && rimraf -rf ./.cache && rimraf ./dist"
     },
     "browserslist": [

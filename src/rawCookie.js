@@ -1,10 +1,3 @@
-/*--------------------------------------------------------------
-## ⚠️ Uncomment this to build the styles in dist.
-## Comment it out for development if not editing styles.
-## TODO - Put this in some environment conditional.
---------------------------------------------------------------*/
-import './styles/main.sass';
-
 import { State as state } from './config/State';
 import { config } from './config/Config';
 
@@ -16,5 +9,7 @@ window.addEventListener('DOMContentLoaded', function onLoad() {
     // Init
     InjectTemplate(config);
     App(state, config);
-    // InjectStyles();
+    if (process.env.NODE_ENV === 'production') {
+        InjectStyles();
+    }
 });
