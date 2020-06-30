@@ -1,4 +1,4 @@
-import compiled from '../styles/compiledCSS';
+import { compiled } from '../styles/compiledCSS';
 
 export default function InjectStyles() {
     const styleTemplate = document.createElement('style');
