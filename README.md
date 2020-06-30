@@ -25,11 +25,15 @@ public/index -> `<link rel="stylesheet" href="../src/styles/main.sass" />`
 If you want to test the injected styles, you can comment out the above line in the head and remove the `if (process.env.NODE_ENV === 'production')`
 in src/rawCookie.js
 
+<br><br>
+
 __Run Clean__
 
 `yarn clean`
 
  This wipes the Development and Dist folders, and the cache. 
+
+<br><br>
 
 __Compile JS__
 
@@ -41,9 +45,15 @@ Regenerator package is needed if you want to use promises and imports/exports
 ⚠️ If you're not supporting IE, it's recommended you change the `browserslist` in `package.json`
 to not target it and older browsers, then recompile/rebundle. You can shave off about 40kb of excess JS and CSS.
 
+<br><br>
+
+
 __Compile Styles__
 
 Runs using dart-sass on the CLI. Autoprefixes and minifies, outputs to `dist` 
+
+<br><br>
+
 
 __Update Styles To Inject__
 
@@ -51,6 +61,8 @@ __Update Styles To Inject__
 
 Requires a compiled and minified css file to be in `dist` 
 Reads the file and converts it to a .js export `src/styles/compiledCSS.js`
+
+<br><br>
 
 __Bundle__
 
@@ -60,6 +72,8 @@ Runs `clean` then `build-styles` then `update-styles-to-inject` and finally `bui
 Compiles the sass, recreates the JS expport for use in rawCookie.js for injection and then bundles the JS again including the changed styles.
 
 If you only changed the JS you only need to run `build-js`
+
+<br><br>
 
 __Nice to Have__
 - Add fetch with polyfill to get all the config data + loading styles for disclosures
