@@ -168,9 +168,11 @@ function App(state, config) {
         }
 
         // You can't set (https) secure cookies from http!
-        // document.cookie = `${name}=${value}; ${expires}; path=/; secure`;
-        document.cookie = `${name}=${value}; ${expires}; path=/;`;
-    }
+        if (process.env.NODE_ENV === 'production') {
+            document.cookie = `${name}=${value}; ${expires}; path=/; secure`;
+        } else {
+            document.cookie = `${name}=${value}; ${expires}; path=/;`;
+        }
 
     /**
      * Remove Cookie (set it to expire)
