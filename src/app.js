@@ -1,4 +1,4 @@
-function App(state, config) {
+function App(state, config, colors) {
     /*--------------------------------------------------------------
     ## InfoDialog Elements
     --------------------------------------------------------------*/
@@ -18,6 +18,7 @@ function App(state, config) {
     ## (Initial) Dialog Elements
     --------------------------------------------------------------*/
     const initialDialog = document.getElementById('initialDialog');
+    const pirvacyLink = document.querySelector('.raw-cookie__content-link');
     const dialogSave = document.getElementById('dialogSave');
     const accept = document.getElementById('rawCookieAccept');
 
@@ -42,11 +43,16 @@ function App(state, config) {
         },
     };
 
+    /*--------------------------------------------------------------
+    ## Functions
+    --------------------------------------------------------------*/
+
     /**
      * Mirror the bool state as checkboxes
      *
      * @param {Object} State
      */
+
     function mirrorState(state) {
         if (state.hasPrefs) {
             checkboxes.infoDialog.necessary.setAttribute('checked', true);
@@ -75,6 +81,35 @@ function App(state, config) {
         }
     }
 
+    /**
+     * Add checkbox values to state.userPrefs
+     *
+     * @param {Object} state.userPrefs
+     */
+
+    function checkPrefs(obj) {
+        const { marketing, personalisation, analytics } = obj;
+        state.userPrefs.necessary = true;
+        if (!marketing.checked) {
+            state.userPrefs.marketing = false;
+        } else if (marketing.checked) {
+            state.userPrefs.marketing = true;
+        }
+
+        if (!personalisation.checked) {
+            state.userPrefs.personalisation = false;
+        } else if (personalisation.checked) {
+            state.userPrefs.personalisation = true;
+        }
+
+        if (!analytics.checked) {
+            state.userPrefs.analytics = false;
+        } else if (analytics.checked) {
+            state.userPrefs.analytics = true;
+        }
+        setUserPrefs(state.userPrefs);
+    }
+
     /*--------------------------------------------------------------
     ## Remove Scripts 
     --------------------------------------------------------------*/
@@ -84,6 +119,7 @@ function App(state, config) {
      *
      * @param {String} "https://url.com"
      */
+
     function removeScript(source) {
         const scriptTarget = document.head.querySelectorAll('script');
         let scriptSrc = '';
@@ -102,6 +138,7 @@ function App(state, config) {
      *
      * @param {Object} (Config)
      */
+
     function disableAnalytics(conf) {
         if (conf.scripts.analytics.length > 0) {
             // Disables GA Tracking
@@ -120,6 +157,7 @@ function App(state, config) {
      *
      * @param {Object} (Config)
      */
+
     function disablePersonalisation(conf) {
         if (conf.scripts.personalisation.length > 0) {
             removeScript(conf.scripts.personalisation);
@@ -136,6 +174,7 @@ function App(state, config) {
      *
      * @param {String} "https://url.com"
      */
+
     function disableMarketing(conf) {
         if (conf.scripts.marketing.length > 0) {
             removeScript(conf.scripts.marketing);
@@ -173,6 +212,7 @@ function App(state, config) {
         } else {
             document.cookie = `${name}=${value}; ${expires}; path=/;`;
         }
+    }
 
     /**
      * Remove Cookie (set it to expire)
@@ -216,34 +256,6 @@ function App(state, config) {
             cookieString.push(`${key}=${value}`);
         }
         return cookieString.join(',');
-    }
-
-    /**
-     * Add checkbox values to state.userPrefs
-     *
-     * @param {Object} state.userPrefs
-     */
-    function checkPrefs(obj) {
-        const { marketing, personalisation, analytics } = obj;
-        state.userPrefs.necessary = true;
-        if (!marketing.checked) {
-            state.userPrefs.marketing = false;
-        } else if (marketing.checked) {
-            state.userPrefs.marketing = true;
-        }
-
-        if (!personalisation.checked) {
-            state.userPrefs.personalisation = false;
-        } else if (personalisation.checked) {
-            state.userPrefs.personalisation = true;
-        }
-
-        if (!analytics.checked) {
-            state.userPrefs.analytics = false;
-        } else if (analytics.checked) {
-            state.userPrefs.analytics = true;
-        }
-        setUserPrefs(state.userPrefs);
     }
 
     /**
@@ -344,6 +356,21 @@ function App(state, config) {
     accept.addEventListener('click', handleAcceptAll);
 
     cookieToggleButton.addEventListener('click', handleInfoToggle);
+
+    /*--------------------------------------------------------------
+    ## Custom Colors
+    --------------------------------------------------------------*/
+    infoDialog.style.background = colors.infoBG;
+    infoDialog.style.color = colors.infoFG;
+    initialDialog.style.background = colors.dialogBG;
+    initialDialog.style.color = colors.dialogFG;
+    pirvacyLink.style.color = colors.link;
+    dialogSave.style.background = colors.buttonBG;
+    accept.style.background = colors.buttonBG;
+    infoDialogSave.style.background = colors.buttonBG;
+    dialogSave.style.color = colors.buttonFG;
+    accept.style.color = colors.buttonFG;
+    infoDialogSave.style.color = colors.buttonFG;
 
     /*--------------------------------------------------------------
     ## Init Actions
