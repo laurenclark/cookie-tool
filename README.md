@@ -2,6 +2,35 @@
 
 PECR Cookie Opt-In Tool
 
+## How to Use
+
+__Basic Use:__
+
+Include `rawCookie.js` from dist in your script tag.
+
+`<script src="./myproject/rawCookie.js" />`
+
+Note: If placing in the head you need to add the `defer` attribute.
+
+__Custom Colors:__
+
+You can include any or all of the following data-attributes to set colours for the initial dialog, and info dialog background(bg) and foreground(fg), as well as the button background and foreground, and also the color of the link.
+
+```
+data-color-primarybg="#f0f333"
+data-color-primaryfg="#f5f"
+data-color-secondarybg="#f5f"
+data-color-secondaryfg="#f0f333"
+data-color-buttonbg="#FF0000"
+data-color-buttonfg="#e1e1e1"
+data-color-link="#579a60"
+```
+
+Example:
+
+`<script defer src="../src/rawCookie.js" data-color-primarybg="#f0f333" data-color-primaryfg="#f5f" data-color-secondarybg="#f5f" data-color-secondaryfg="#f0f333" data-color-buttonbg="#FF0000" data-color-buttonfg="#e1e1e1" data-color-link="#579a60"></script>`
+
+
 # 🍪 RawCookie
 
 Uses:
