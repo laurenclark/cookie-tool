@@ -12,6 +12,8 @@ var modified = `const compiled = ${content}
 export { compiled };
 `;
 
-console.log('✅ File written successfully');
+console.log(
+    '✅ dist/compiled.css written successfully to src/styles/compiledCSS.js ',
+);
 
 fs.writeFileSync(output, modified);
