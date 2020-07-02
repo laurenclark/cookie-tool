@@ -59,7 +59,7 @@
         transition-property: transform
         transition-duration: 400ms
         padding: 1em 0.75em
-        box-shadow: 0 0 2px 2px #ccc
+        box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.2), 0 3px 20px 0px rgba(43, 42, 42, 0.4)
         overflow-x: hidden
         overflow-y: auto
         left: 0
@@ -130,10 +130,9 @@
             padding: 0
 
     &__disclosure
-        font-size: 0.85em
-        margin: 0 -1.5em 0
-        padding: 0.5em 1.5em 0
         font-size: 0.75em
+        margin: 0 -1.5em 0
+        padding: 1.5em 1.5em 0
 
         &__title
             display: block
@@ -151,7 +150,6 @@
             line-height: 1.25
             position: relative
             &:focus
-                color: $button-alt
                 outline: none
 
         &__list
@@ -167,6 +165,10 @@
             & p
                 margin-top: 0
                 margin-bottom: 5px
+        &:not([open])
+            border-bottom: 1px solid rgba(0,0,0,0.1)
+            margin-bottom: 0
+            padding-bottom: 1em
 
     &__cookie-disclosure
         display: flex
