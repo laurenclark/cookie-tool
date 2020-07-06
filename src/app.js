@@ -222,7 +222,8 @@ function App(state, config, colors) {
      */
 
     function removeCookie(id) {
-        document.cookie = `${id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"`;
+        const expires = 'Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+        document.cookie = `${id}=; ${expires}`;
     }
 
     /**
@@ -374,7 +375,7 @@ function App(state, config, colors) {
     ## Init Actions
     --------------------------------------------------------------*/
 
-    function onInit() {
+    (function onInit() {
         let cookies = getCookies();
         if (cookies.RAWCOOKIE) {
             state.hasPrefs = true;
@@ -393,8 +394,7 @@ function App(state, config, colors) {
         } else {
             mirrorState(state);
         }
-    }
-    onInit();
+    })();
 }
 
 export default App;
