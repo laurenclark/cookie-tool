@@ -9,7 +9,7 @@
         "build-js": "NODE_ENV=production parcel build --no-cache --no-source-maps --no-content-hash src/rawCookie.js --out-dir dist --out-file rawCookie.js --public-url ./",
         "build-styles": "sass src/styles/main.sass dist/compiled.css --no-source-map --style=compressed",
         "update-styles-to-inject": "node build-scripts/bundle-css-into-js.js ./dist/compiled.css ./src/styles/compiledCSS.js",
-        "bundle-for-prod": "npm run clean && npm run build-styles && npm run update-styles-to-inject && npm run build-js",
+        "bundle-for-prod": "npm run clean && npm run build-styles && npm run update-styles-to-inject && npm run build-js && rm dist/compiled.css",
         "clean": "rimraf ./development && rimraf -rf ./.cache && rimraf ./dist"
     },
     "browserslist": [
