@@ -5,7 +5,7 @@ function App(state, config, colors) {
     const infoDialogClose = document.getElementById('info-dialog-toggle');
     const infoDialog = document.querySelector('.raw-cookie__info-dialog');
     const infoDialogWrapper = document.querySelector(
-        '.raw-cookie__info-dialog__wrapper',
+        '.raw-cookie__info-dialog__wrapper'
     );
     const infoDialogSave = document.getElementById('infoDialogSave');
 
@@ -29,18 +29,18 @@ function App(state, config, colors) {
         dialog: {
             marketing: initialDialog.querySelector('.marketing-checkbox'),
             personalisation: initialDialog.querySelector(
-                '.personalisation-checkbox',
+                '.personalisation-checkbox'
             ),
-            analytics: initialDialog.querySelector('.analytics-checkbox'),
+            analytics: initialDialog.querySelector('.analytics-checkbox')
         },
         infoDialog: {
             necessary: infoDialog.querySelector('.strictly-necessary-checkbox'),
             marketing: infoDialog.querySelector('.marketing-checkbox'),
             personalisation: infoDialog.querySelector(
-                '.personalisation-checkbox',
+                '.personalisation-checkbox'
             ),
-            analytics: infoDialog.querySelector('.analytics-checkbox'),
-        },
+            analytics: infoDialog.querySelector('.analytics-checkbox')
+        }
     };
 
     /*--------------------------------------------------------------
@@ -67,7 +67,7 @@ function App(state, config, colors) {
             } else if (state.userPrefs.personalisation) {
                 checkboxes.infoDialog.personalisation.setAttribute(
                     'checked',
-                    true,
+                    true
                 );
             }
             if (!state.userPrefs.analytics) {
@@ -208,10 +208,10 @@ function App(state, config, colors) {
 
         // You can't set (https) secure cookies from http!
         if (process.env.NODE_ENV === 'production') {
-            document.cookie = `${name}=${value}; ${expires}; path=/; secure`;
-        } else {
-            document.cookie = `${name}=${value}; ${expires}; path=/;`;
+            return (document.cookie = `${name}=${value}; ${expires}; path=/; secure`);
         }
+
+        return (document.cookie = `${name}=${value}; ${expires}; path=/;`);
     }
 
     /**
@@ -237,9 +237,9 @@ function App(state, config, colors) {
             .reduce(
                 (accumulator, [key, value]) => ({
                     ...accumulator,
-                    [key.trim()]: decodeURIComponent(value),
+                    [key.trim()]: decodeURIComponent(value)
                 }),
-                {},
+                {}
             );
     }
 
@@ -280,9 +280,8 @@ function App(state, config, colors) {
     function convertStringToBool(val) {
         if (val === 'true') {
             return true;
-        } else if (val === 'false') {
-            return false;
         }
+        return false;
     }
 
     /*--------------------------------------------------------------
@@ -309,7 +308,7 @@ function App(state, config, colors) {
             necessary: true,
             marketing: true,
             personalisation: true,
-            analytics: true,
+            analytics: true
         };
         mirrorState(state);
         setUserPrefs(state.userPrefs);
@@ -319,13 +318,13 @@ function App(state, config, colors) {
         mirrorState(state);
         if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
             infoDialogWrapper.classList.add(
-                'raw-cookie__info-dialog__wrapper--hidden',
+                'raw-cookie__info-dialog__wrapper--hidden'
             );
             infoDialog.classList.remove('raw-cookie__info-dialog--open');
         } else {
             infoDialog.classList.add('raw-cookie__info-dialog--open');
             infoDialogWrapper.classList.remove(
-                'raw-cookie__info-dialog__wrapper--hidden',
+                'raw-cookie__info-dialog__wrapper--hidden'
             );
         }
     }
@@ -339,10 +338,9 @@ function App(state, config, colors) {
 
     function toggler(target, className) {
         if (target.classList.contains(className)) {
-            target.classList.remove(className);
-        } else {
-            target.classList.add(className);
+            return target.classList.remove(className);
         }
+        return target.classList.add(className);
     }
 
     /*--------------------------------------------------------------
@@ -385,9 +383,9 @@ function App(state, config, colors) {
                 .reduce(
                     (accumulator, [key, value]) => ({
                         ...accumulator,
-                        [key.trim()]: convertStringToBool(value),
+                        [key.trim()]: convertStringToBool(value)
                     }),
-                    {},
+                    {}
                 );
             state.userPrefs = prefsToSet;
             mirrorState(state);
