@@ -106,6 +106,7 @@ If you only changed the JS you only need to run `build-js`
 
 **Nice to Have**
 
+-   Convert the data js files to JSON
 -   Add fetch with polyfill to get all the config data + loading styles for disclosures
 -   Add unit testing
 
