@@ -7,13 +7,13 @@ var content = fs.readFileSync(input, 'utf8');
 
 content = '`' + content + '`;';
 
-var modified = `const compiled = ${content}
-
-export { compiled };
+var modified = `
+    const compiled = ${content}
+    export { compiled };
 `;
 
 console.log(
-    '✅ dist/compiled.css written successfully to src/styles/compiledCSS.js ',
+    '✅ dist/compiled.css written successfully to src/styles/compiledCSS.js '
 );
 
 fs.writeFileSync(output, modified);
