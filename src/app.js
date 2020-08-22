@@ -2,28 +2,37 @@ function App(state, config, colors) {
     /*--------------------------------------------------------------
     ## InfoDialog Elements
     --------------------------------------------------------------*/
-    const infoDialogClose = document.getElementById('info-dialog-toggle')
-    const infoDialog = document.querySelector('.raw-cookie__info-dialog')
-    const infoDialogWrapper = document.querySelector(
-        '.raw-cookie__info-dialog__wrapper'
-    )
-    const infoDialogSave = document.getElementById('infoDialogSave')
+
+    const infoDialogElems = {
+        dialog: document.querySelector('.raw-cookie__info-dialog'),
+        close: document.getElementById('info-dialog-toggle'),
+        wrapper: document.querySelector('.raw-cookie__info-dialog__wrapper'),
+        save: document.getElementById('infoDialogSave')
+    };
+
+    const { dialog: infoDialog } = infoDialogElems;
+
     /*--------------------------------------------------------------
     ## Cookie Toggle Button
     --------------------------------------------------------------*/
-    const cookieToggleButton = document.getElementById('cookieToggleButton')
+    const cookieToggleButton = document.getElementById('cookieToggleButton');
 
     /*--------------------------------------------------------------
     ## (Initial) Dialog Elements
     --------------------------------------------------------------*/
-    const initialDialog = document.getElementById('initialDialog')
-    const pirvacyLink = document.querySelector('.raw-cookie__content-link')
-    const dialogSave = document.getElementById('dialogSave')
-    const accept = document.getElementById('rawCookieAccept')
+    const intialDialogElems = {
+        dialog: document.getElementById('initialDialog'),
+        privacyLink: document.querySelector('.raw-cookie__content-link'),
+        save: document.getElementById('dialogSave'),
+        accept: document.getElementById('rawCookieAccept')
+    };
+
+    const { dialog: initialDialog } = intialDialogElems;
 
     /*--------------------------------------------------------------
     ## Checkboxes
     --------------------------------------------------------------*/
+
     const checkboxes = {
         dialog: {
             marketing: initialDialog.querySelector('.marketing-checkbox'),
@@ -40,7 +49,7 @@ function App(state, config, colors) {
             ),
             analytics: infoDialog.querySelector('.analytics-checkbox')
         }
-    }
+    };
 
     /*--------------------------------------------------------------
     ## Functions
@@ -54,29 +63,29 @@ function App(state, config, colors) {
 
     function mirrorState(state) {
         if (state.hasPrefs) {
-            checkboxes.infoDialog.necessary.setAttribute('checked', true)
-            checkboxes.infoDialog.necessary.setAttribute('disabled', true)
+            checkboxes.infoDialog.necessary.setAttribute('checked', true);
+            checkboxes.infoDialog.necessary.setAttribute('disabled', true);
             if (!state.userPrefs.marketing) {
-                disableMarketing(config)
+                disableMarketing(config);
             } else if (state.userPrefs.marketing) {
-                checkboxes.infoDialog.marketing.setAttribute('checked', true)
+                checkboxes.infoDialog.marketing.setAttribute('checked', true);
             }
             if (!state.userPrefs.personalisation) {
-                disablePersonalisation(config)
+                disablePersonalisation(config);
             } else if (state.userPrefs.personalisation) {
                 checkboxes.infoDialog.personalisation.setAttribute(
                     'checked',
                     true
-                )
+                );
             }
             if (!state.userPrefs.analytics) {
-                disableAnalytics(config)
+                disableAnalytics(config);
             } else if (state.userPrefs.analytics) {
-                checkboxes.infoDialog.analytics.setAttribute('checked', true)
+                checkboxes.infoDialog.analytics.setAttribute('checked', true);
             }
         } else {
-            toggler(cookieToggleButton, 'raw-cookie__widget--hidden')
-            toggler(initialDialog, 'raw-cookie__dialog--hidden')
+            toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+            toggler(initialDialog, 'raw-cookie__dialog--hidden');
         }
     }
 
@@ -87,26 +96,26 @@ function App(state, config, colors) {
      */
 
     function checkPrefs(obj) {
-        const { marketing, personalisation, analytics } = obj
-        state.userPrefs.necessary = true
+        const { marketing, personalisation, analytics } = obj;
+        state.userPrefs.necessary = true;
         if (!marketing.checked) {
-            state.userPrefs.marketing = false
+            state.userPrefs.marketing = false;
         } else if (marketing.checked) {
-            state.userPrefs.marketing = true
+            state.userPrefs.marketing = true;
         }
 
         if (!personalisation.checked) {
-            state.userPrefs.personalisation = false
+            state.userPrefs.personalisation = false;
         } else if (personalisation.checked) {
-            state.userPrefs.personalisation = true
+            state.userPrefs.personalisation = true;
         }
 
         if (!analytics.checked) {
-            state.userPrefs.analytics = false
+            state.userPrefs.analytics = false;
         } else if (analytics.checked) {
-            state.userPrefs.analytics = true
+            state.userPrefs.analytics = true;
         }
-        setUserPrefs(state.userPrefs)
+        setUserPrefs(state.userPrefs);
     }
 
     /*--------------------------------------------------------------
@@ -120,15 +129,15 @@ function App(state, config, colors) {
      */
 
     function removeScript(source) {
-        const scriptTarget = document.head.querySelectorAll('script')
-        let scriptSrc = ''
+        const scriptTarget = document.head.querySelectorAll('script');
+        let scriptSrc = '';
         for (let i = 0; scriptTarget.length > i; i += 1) {
             if (scriptTarget[i].src === source) {
-                scriptSrc = scriptTarget[i]
+                scriptSrc = scriptTarget[i];
             }
         }
         if (scriptSrc) {
-            scriptSrc.parentNode.removeChild(scriptSrc)
+            scriptSrc.parentNode.removeChild(scriptSrc);
         }
     }
 
@@ -141,12 +150,12 @@ function App(state, config, colors) {
     function disableAnalytics(conf) {
         if (conf.scripts.analytics.length > 0) {
             // Disables GA Tracking
-            window[`ga-disable-${conf.analyticsCode}`] = true
-            removeScript(conf.scripts.analytics)
+            window[`ga-disable-${conf.analyticsCode}`] = true;
+            removeScript(conf.scripts.analytics);
         }
         if (conf.cookies.analytics.length > 0) {
             for (let i = 0; conf.cookies.analytics.length < i; i += 1) {
-                removeCookie(conf.cookies.analytics[i])
+                removeCookie(conf.cookies.analytics[i]);
             }
         }
     }
@@ -159,11 +168,11 @@ function App(state, config, colors) {
 
     function disablePersonalisation(conf) {
         if (conf.scripts.personalisation.length > 0) {
-            removeScript(conf.scripts.personalisation)
+            removeScript(conf.scripts.personalisation);
         }
         if (conf.cookies.personalisation.length > 0) {
             for (let i = 0; conf.cookies.personalisation.length < i; i += 1) {
-                removeCookie(conf.cookies.personalisation[i])
+                removeCookie(conf.cookies.personalisation[i]);
             }
         }
     }
@@ -176,11 +185,11 @@ function App(state, config, colors) {
 
     function disableMarketing(conf) {
         if (conf.scripts.marketing.length > 0) {
-            removeScript(conf.scripts.marketing)
+            removeScript(conf.scripts.marketing);
         }
         if (conf.cookies.marketing.length > 0) {
             for (let i = 0; conf.cookies.marketing.length < i; i += 1) {
-                removeCookie(conf.cookies.marketing[i])
+                removeCookie(conf.cookies.marketing[i]);
             }
         }
     }
@@ -198,19 +207,19 @@ function App(state, config, colors) {
      */
 
     function setCookie(name, value, days) {
-        let expires = ''
+        let expires = '';
         if (days) {
-            const date = new Date()
-            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-            expires = 'expires=' + date.toUTCString()
+            const date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            expires = 'expires=' + date.toUTCString();
         }
 
         // You can't set (https) secure cookies from http!
         if (process.env.NODE_ENV === 'production') {
-            return (document.cookie = `${name}=${value}; ${expires}; path=/; secure`)
+            return (document.cookie = `${name}=${value}; ${expires}; path=/; secure`);
         }
 
-        return (document.cookie = `${name}=${value}; ${expires}; path=/;`)
+        return (document.cookie = `${name}=${value}; ${expires}; path=/;`);
     }
 
     /**
@@ -221,8 +230,8 @@ function App(state, config, colors) {
      */
 
     function removeCookie(id) {
-        const expires = 'Thu, 01 Jan 1970 00:00:00 UTC; path=/'
-        document.cookie = `${id}=; ${expires}`
+        const expires = 'Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+        document.cookie = `${id}=; ${expires}`;
     }
 
     /**
@@ -240,7 +249,7 @@ function App(state, config, colors) {
                     [key.trim()]: decodeURIComponent(value)
                 }),
                 {}
-            )
+            );
     }
 
     /**
@@ -251,11 +260,11 @@ function App(state, config, colors) {
      */
 
     function createCookieString(obj) {
-        let cookieString = []
+        let cookieString = [];
         for (let [key, value] of Object.entries(obj)) {
-            cookieString.push(`${key}=${value}`)
+            cookieString.push(`${key}=${value}`);
         }
-        return cookieString.join(',')
+        return cookieString.join(',');
     }
 
     /**
@@ -265,9 +274,9 @@ function App(state, config, colors) {
      */
 
     function setUserPrefs(userPrefs) {
-        state.hasPrefs = true
-        const cookieString = createCookieString(userPrefs)
-        setCookie('RAWCOOKIE', cookieString, 365)
+        state.hasPrefs = true;
+        const cookieString = createCookieString(userPrefs);
+        setCookie('RAWCOOKIE', cookieString, 365);
     }
 
     /**
@@ -279,9 +288,9 @@ function App(state, config, colors) {
 
     function convertStringToBool(val) {
         if (val === 'true') {
-            return true
+            return true;
         }
-        return false
+        return false;
     }
 
     /*--------------------------------------------------------------
@@ -289,18 +298,18 @@ function App(state, config, colors) {
     --------------------------------------------------------------*/
 
     function handleSave() {
-        checkPrefs(checkboxes.dialog)
-        setUserPrefs(state.userPrefs)
-        toggler(cookieToggleButton, 'raw-cookie__widget--hidden')
-        toggler(initialDialog, 'raw-cookie__dialog--hidden')
-        mirrorState(state)
+        checkPrefs(checkboxes.dialog);
+        setUserPrefs(state.userPrefs);
+        toggler(cookieToggleButton, 'raw-cookie__widget--hidden');
+        toggler(initialDialog, 'raw-cookie__dialog--hidden');
+        mirrorState(state);
     }
 
     function handleInfoSave() {
-        checkPrefs(checkboxes.infoDialog)
-        setUserPrefs(state.userPrefs)
-        handleInfoToggle()
-        mirrorState(state)
+        checkPrefs(checkboxes.infoDialog);
+        setUserPrefs(state.userPrefs);
+        handleInfoToggle();
+        mirrorState(state);
     }
 
     function handleAcceptAll() {
@@ -309,23 +318,23 @@ function App(state, config, colors) {
             marketing: true,
             personalisation: true,
             analytics: true
-        }
-        mirrorState(state)
-        setUserPrefs(state.userPrefs)
+        };
+        mirrorState(state);
+        setUserPrefs(state.userPrefs);
     }
 
     function handleInfoToggle() {
-        mirrorState(state)
+        mirrorState(state);
         if (infoDialog.classList.contains('raw-cookie__info-dialog--open')) {
-            infoDialogWrapper.classList.add(
+            infoDialogElems.wrapper.classList.add(
                 'raw-cookie__info-dialog__wrapper--hidden'
-            )
-            infoDialog.classList.remove('raw-cookie__info-dialog--open')
+            );
+            infoDialog.classList.remove('raw-cookie__info-dialog--open');
         } else {
-            infoDialog.classList.add('raw-cookie__info-dialog--open')
-            infoDialogWrapper.classList.remove(
+            infoDialog.classList.add('raw-cookie__info-dialog--open');
+            infoDialogElems.wrapper.classList.remove(
                 'raw-cookie__info-dialog__wrapper--hidden'
-            )
+            );
         }
     }
 
@@ -338,46 +347,46 @@ function App(state, config, colors) {
 
     function toggler(target, className) {
         if (target.classList.contains(className)) {
-            return target.classList.remove(className)
+            return target.classList.remove(className);
         }
-        return target.classList.add(className)
+        return target.classList.add(className);
     }
 
     /*--------------------------------------------------------------
     ## Event Listeners
     --------------------------------------------------------------*/
 
-    infoDialogClose.addEventListener('click', handleInfoToggle)
-    infoDialogSave.addEventListener('click', handleInfoSave)
+    infoDialogElems.close.addEventListener('click', handleInfoToggle);
+    infoDialogSave.addEventListener('click', handleInfoSave);
 
-    dialogSave.addEventListener('click', handleSave)
-    accept.addEventListener('click', handleAcceptAll)
+    dialogSave.addEventListener('click', handleSave);
+    intialDialogElems.accept.addEventListener('click', handleAcceptAll);
 
-    cookieToggleButton.addEventListener('click', handleInfoToggle)
+    cookieToggleButton.addEventListener('click', handleInfoToggle);
 
     /*--------------------------------------------------------------
     ## Custom Colors
     --------------------------------------------------------------*/
-    infoDialog.style.background = colors.infoBG
-    infoDialog.style.color = colors.infoFG
-    infoDialogClose.style.fill = colors.infoFG
-    initialDialog.style.background = colors.dialogBG
-    initialDialog.style.color = colors.dialogFG
-    pirvacyLink.style.color = colors.link
-    dialogSave.style.background = colors.buttonBG
-    accept.style.background = colors.buttonBG
-    infoDialogSave.style.background = colors.buttonBG
-    dialogSave.style.color = colors.buttonFG
-    accept.style.color = colors.buttonFG
-    infoDialogSave.style.color = colors.buttonFG
+    infoDialog.style.background = colors.infoBG;
+    infoDialog.style.color = colors.infoFG;
+    infoDialogElems.close.style.fill = colors.infoFG;
+    initialDialog.style.background = colors.dialogBG;
+    initialDialog.style.color = colors.dialogFG;
+    intialDialogElems.privacyLink.style.color = colors.link;
+    dialogSave.style.background = colors.buttonBG;
+    intialDialogElems.accept.style.background = colors.buttonBG;
+    infoDialogSave.style.background = colors.buttonBG;
+    dialogSave.style.color = colors.buttonFG;
+    intialDialogElems.accept.style.color = colors.buttonFG;
+    infoDialogSave.style.color = colors.buttonFG;
 
     /*--------------------------------------------------------------
     ## Init Actions
     --------------------------------------------------------------*/
-    ;(function onInit() {
-        let cookies = getCookies()
+    (function onInit() {
+        let cookies = getCookies();
         if (cookies.RAWCOOKIE) {
-            state.hasPrefs = true
+            state.hasPrefs = true;
             const prefsToSet = cookies.RAWCOOKIE.split(',')
                 .map((cookie) => cookie.split('='))
                 .reduce(
@@ -386,14 +395,14 @@ function App(state, config, colors) {
                         [key.trim()]: convertStringToBool(value)
                     }),
                     {}
-                )
-            state.userPrefs = prefsToSet
-            mirrorState(state)
-            checkPrefs(checkboxes.infoDialog)
+                );
+            state.userPrefs = prefsToSet;
+            mirrorState(state);
+            checkPrefs(checkboxes.infoDialog);
         } else {
-            mirrorState(state)
+            mirrorState(state);
         }
-    })()
+    })();
 }
 
-export default App
+export default App;
