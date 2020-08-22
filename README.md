@@ -1,6 +1,18 @@
-# pecr-cookie-optin
+# 🍪 RawCookie
 
 PECR Cookie Opt-In Tool
+
+Uses:
+
+-   📦 Parcel
+-   💬 Babel
+-   🍦 Vanilla JS
+-   💄 Sass
+-   🧶 Yarn
+
+<br>
+<hr>
+
 
 ## How to Use
 
@@ -32,19 +44,6 @@ Example:
 <script defer src="../src/rawCookie.js" data-color-primarybg="#f0f333" data-color-primaryfg="#f5f" data-color-secondarybg="#f5f" data-color-secondaryfg="#f0f333" data-color-buttonbg="#FF0000" data-color-buttonfg="#e1e1e1" data-color-link="#579a60"></script>
 ```
 
-
-# 🍪 RawCookie
-
-Uses:
-
--   📦 Parcel
--   💬 Babel
--   🍦 Vanilla JS
--   💄 Sass
--   🧶 Yarn
-
-<br>
-<hr>
 
 **Run Development**
 
